@@ -330,7 +330,7 @@ h2 { font-size: 1.3rem; margin: 0 0 16px; }
 }
 .btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #d97e00; }
 .btn.big { font-size: 1.2rem; padding: 15px 32px; }
-.btn.slim { font-size: .92rem; padding: 9px 18px; box-shadow: 0 5px 0 #d97e00; background: var(--purple); box-shadow: 0 5px 0 #6f3fb0; }
+.btn.slim { font-size: .92rem; padding: 9px 18px; background: var(--purple); box-shadow: 0 5px 0 #6f3fb0; }
 .btn.ghost { background: transparent; color: var(--ink); box-shadow: none; text-decoration: underline; }
 .btn:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 .wiggle:hover { animation: wig .4s ease; }

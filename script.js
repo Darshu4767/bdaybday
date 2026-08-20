@@ -485,10 +485,9 @@ function startOver() {
 
 /* ---- Confetti 🎉 ---- */
 function celebrate() {
-  if (typeof confetti !== "function") return;
+  if (typeof confetti !== "function" || reduceMotion.matches) return;
   const colors = ["#06d6a0", "#ff9f1c", "#9b5de5", "#ff5d8f", "#ffd166"];
   confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 }, colors });
-  if (reduceMotion.matches) return;
   const end = Date.now() + 1500;
   (function frame() {
     confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors });
