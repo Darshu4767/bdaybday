@@ -179,12 +179,10 @@ function finish(e) {
   currentSummary = buildSummary(d);
   document.getElementById("summary").textContent = currentSummary;
 
-  // mailto backup button
-  const subject = encodeURIComponent(`${FRIEND_NAME}'s Birthday Plan 🎉`);
-  const body = encodeURIComponent(currentSummary);
-  document.getElementById("mailBtn").href = `mailto:${YOUR_EMAIL}?subject=${subject}&body=${body}`;
-
   // Send to Formspree (lands in your email automatically)
+  const statusEl = document.getElementById("sendStatus");
+  if (statusEl) statusEl.textContent = "📤 Sending your choices...";
+
   fetch(FORMSPREE_ENDPOINT, {
     method: "POST",
     headers: { "Accept": "application/json", "Content-Type": "application/json" },
@@ -195,7 +193,17 @@ function finish(e) {
       bag: d.bag,
       summary: currentSummary,
     }),
-  }).catch(() => { /* ignore network errors; mailto is a backup */ });
+  })
+    .then((res) => {
+      if (statusEl) {
+        statusEl.textContent = res.ok
+          ? "✅ Sent to Darshana! Your choices are on their way 💌"
+          : "✅ Saved! (If email doesn't arrive, use Copy my choices.)";
+      }
+    })
+    .catch(() => {
+      if (statusEl) statusEl.textContent = "⚠️ Couldn't send online — tap Copy my choices instead.";
+    });
 
   show("done");
   celebrate();
