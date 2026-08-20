@@ -12,42 +12,27 @@
 <body>
   <!-- ===== ANIMATED FOREST BACKGROUND ===== -->
   <div class="forest" aria-hidden="true">
-    <!-- Sky + sun -->
     <div class="sun"></div>
-
-    <!-- Drifting clouds -->
     <div class="cloud c1">☁️</div>
     <div class="cloud c2">☁️</div>
     <div class="cloud c3">☁️</div>
-
-    <!-- Far hills -->
     <div class="hills"></div>
-
-    <!-- Back layer of trees (small, slow) -->
     <div class="tree-row back">
       <span class="tree">🌲</span><span class="tree">🌳</span><span class="tree">🌲</span>
       <span class="tree">🌳</span><span class="tree">🌲</span><span class="tree">🌳</span>
       <span class="tree">🌲</span><span class="tree">🌳</span><span class="tree">🌲</span>
     </div>
-
-    <!-- Front layer of trees (big) -->
     <div class="tree-row front">
       <span class="tree">🌴</span><span class="tree">🌳</span><span class="tree">🌴</span>
       <span class="tree">🌳</span><span class="tree">🌴</span><span class="tree">🌳</span>
       <span class="tree">🌴</span>
     </div>
-
-    <!-- Ground / grass -->
     <div class="ground"></div>
     <div class="grass"></div>
-
-    <!-- Hanging swaying vines -->
     <span class="vine v1">🌿</span>
     <span class="vine v2">🍃</span>
     <span class="vine v3">🌿</span>
     <span class="vine v4">🍃</span>
-
-    <!-- Floating creatures & objects -->
     <span class="floaty butterfly b1">🦋</span>
     <span class="floaty butterfly b2">🦋</span>
     <span class="floaty bird">🐦</span>
@@ -56,27 +41,26 @@
     <span class="floaty leaf l3">🍃</span>
     <span class="floaty bee">🐝</span>
     <span class="floaty parrot">🦜</span>
-
-    <!-- Fireflies / sparkles -->
     <span class="firefly f1"></span>
     <span class="firefly f2"></span>
     <span class="firefly f3"></span>
     <span class="firefly f4"></span>
     <span class="firefly f5"></span>
     <span class="firefly f6"></span>
-
-    <!-- Floating stars -->
     <span class="star s1">⭐</span>
     <span class="star s2">✨</span>
     <span class="star s3">🌟</span>
     <span class="star s4">✨</span>
   </div>
 
+  <!-- Boots the monkey peeks from bottom-left, Swiper-style fox from bottom-right -->
+  <div class="buddy boots" title="Boots the monkey">🐵</div>
+  <div class="buddy fox" title="A sneaky little fox!">🦊</div>
+
   <main class="wrap">
     <!-- ===== ANIMATED "DORA SAYS HI" SCENE ===== -->
     <section id="scene" class="screen active">
       <div class="card scene-card">
-        <!-- CSS-art explorer girl (Dora-inspired, not the copyrighted character) -->
         <div class="explorer" aria-hidden="true">
           <div class="head">
             <div class="hair"></div>
@@ -91,12 +75,9 @@
             <span class="arm wave">👋</span>
           </div>
         </div>
-
-        <!-- Speech bubble that types out the poem -->
         <div class="bubble">
           <p id="poem" class="poem"></p>
         </div>
-
         <div class="btn-row">
           <button class="btn wiggle" onclick="playPoem()">🔊 Hear it again</button>
           <button class="btn big wiggle" onclick="goToIntro()">Let's go! ⭐</button>
@@ -105,23 +86,38 @@
       </div>
     </section>
 
-    <!-- ===== INTRO SCREEN ===== -->
+    <!-- ===== INTRO / MAP SCREEN ===== -->
     <section id="intro" class="screen">
       <div class="card intro-card">
-        <div class="backpack">🎒</div>
-        <h1>¡Hola! Let's plan <span id="friendName">Priya</span>'s<br />Birthday Adventure! 🗺️</h1>
-        <p class="sub">Help us map out the perfect day — pick your favourites and we'll do the rest. Vámonos! 🐵</p>
+        <div class="backpack">🗺️</div>
+        <h1>¡Hola! <span id="friendName">Priya</span>, let's go on a<br />Birthday Adventure!</h1>
+        <p class="sub">We'll cross <b>3 magical stops</b> — the Mountain 🏔️, the Lake 🏞️, and the Forest 🌳 — and at each one you make a choice. Boots 🐵 is coming too. ¡Vámonos!</p>
         <button class="btn big wiggle" onclick="startAdventure()">Start the Adventure ⭐</button>
       </div>
     </section>
 
-    <!-- ===== FORM SCREEN ===== -->
+    <!-- ===== ADVENTURE (multi-stop) SCREEN ===== -->
     <section id="form" class="screen">
       <form id="planner" onsubmit="return finish(event)">
 
-        <!-- Q1: How to spend the day -->
-        <div class="card q">
-          <h2>🎉 How do you want to spend your birthday?</h2>
+        <!-- Little trail map showing progress -->
+        <div class="trail card">
+          <span class="stop" data-stop="0">🏔️</span>
+          <span class="dots">· · ·</span>
+          <span class="stop" data-stop="1">🏞️</span>
+          <span class="dots">· · ·</span>
+          <span class="stop" data-stop="2">🌳</span>
+          <span class="dots">· · ·</span>
+          <span class="stop" data-stop="3">🎉</span>
+        </div>
+
+        <!-- ===== STOP 1: THE MOUNTAIN 🏔️ ===== -->
+        <div class="stop-panel card" data-panel="0">
+          <div class="loc-head">
+            <span class="loc-emoji">🏔️</span>
+            <h2>Stop 1 — The Mountain</h2>
+          </div>
+          <p class="loc-guide">🐵 Boots: "We climbed to the top! Up here, tell us <b>how you want to spend your big day!</b>"</p>
           <div class="cards">
             <label class="choice">
               <input type="radio" name="day" value="🎈 Club night" required />
@@ -133,14 +129,19 @@
             </label>
             <label class="choice">
               <input type="radio" name="day" value="🥾 Short hike + picnic" />
-              <span class="choice-inner"><span class="ico">🥾</span>Short hike + picnic</span>
+              <span class="choice-inner"><span class="ico">🥾</span>Hike + picnic</span>
             </label>
           </div>
+          <div class="nav"><button type="button" class="btn wiggle" onclick="nextStop(0)">To the Lake 🏞️ →</button></div>
         </div>
 
-        <!-- Q2: Cake flavour -->
-        <div class="card q">
-          <h2>🎂 Birthday cake flavour</h2>
+        <!-- ===== STOP 2: THE LAKE 🏞️ ===== -->
+        <div class="stop-panel card" data-panel="1" hidden>
+          <div class="loc-head">
+            <span class="loc-emoji">🏞️</span>
+            <h2>Stop 2 — The Sparkly Lake</h2>
+          </div>
+          <p class="loc-guide">🦊 "Oh no, the sneaky fox! Quick — pick your <b>cake flavour</b> before he swipes it!"</p>
           <div class="cards small">
             <label class="choice"><input type="radio" name="cake" value="Chocolate" required /><span class="choice-inner"><span class="ico">🍫</span>Chocolate</span></label>
             <label class="choice"><input type="radio" name="cake" value="Vanilla" /><span class="choice-inner"><span class="ico">🍰</span>Vanilla</span></label>
@@ -150,11 +151,23 @@
             <label class="choice"><input type="radio" name="cake" value="__other" onchange="toggleOther(this)" /><span class="choice-inner"><span class="ico">✍️</span>Other</span></label>
           </div>
           <input type="text" id="cakeOther" class="txt hidden" placeholder="Tell us your dream flavour..." />
+
+          <label class="lbl">🎵 Toss a song into the lake (playlist link)</label>
+          <input type="text" id="playlist" class="txt" placeholder="Paste a Spotify / YouTube link..." />
+
+          <div class="nav">
+            <button type="button" class="btn ghost" onclick="prevStop(1)">← Mountain</button>
+            <button type="button" class="btn wiggle" onclick="nextStop(1)">Into the Forest 🌳 →</button>
+          </div>
         </div>
 
-        <!-- Q3: Gift bag type (with images) -->
-        <div class="card q">
-          <h2>👜 Birthday gift — which bag?</h2>
+        <!-- ===== STOP 3: THE FOREST 🌳 ===== -->
+        <div class="stop-panel card" data-panel="2" hidden>
+          <div class="loc-head">
+            <span class="loc-emoji">🌳</span>
+            <h2>Stop 3 — The Magic Forest</h2>
+          </div>
+          <p class="loc-guide">🐵 Boots found a treasure chest! "Choose your <b>birthday gift bag</b> — and drop links to ones you love!"</p>
           <div class="cards bags">
             <label class="choice bag">
               <input type="radio" name="bag" value="Shoulder bag" required />
@@ -181,17 +194,9 @@
           </div>
           <label class="lbl" for="bagLinks">Paste links to bags you love 💖</label>
           <textarea id="bagLinks" class="txt" rows="3" placeholder="Paste one or more links here..."></textarea>
-        </div>
-
-        <!-- Extras -->
-        <div class="card q">
-          <h2>✨ A few extra touches</h2>
 
           <label class="lbl" for="dress">Dress code / theme colour 👗</label>
           <input type="text" id="dress" class="txt" placeholder="e.g. pastel pink, all-black, glam..." />
-
-          <label class="lbl" for="playlist">Favourite music / playlist link 🎵</label>
-          <input type="text" id="playlist" class="txt" placeholder="Paste a Spotify / YouTube link..." />
 
           <p class="lbl">Guest vibe 👯</p>
           <div class="cards small">
@@ -208,9 +213,12 @@
 
           <label class="lbl" for="wishlist">Wishlist / anything else you want 📝</label>
           <textarea id="wishlist" class="txt" rows="3" placeholder="Dream big! Anything at all..."></textarea>
-        </div>
 
-        <button type="submit" class="btn big wiggle">Finish the Adventure! 🎉</button>
+          <div class="nav">
+            <button type="button" class="btn ghost" onclick="prevStop(2)">← Lake</button>
+            <button type="submit" class="btn big wiggle">Finish the Adventure! 🎉</button>
+          </div>
+        </div>
       </form>
     </section>
 
@@ -219,7 +227,7 @@
       <div class="card done-card">
         <div class="backpack">🌟</div>
         <h1>¡Lo hicimos! We did it! 🎉</h1>
-        <p class="sub">Here's the plan for the best birthday ever:</p>
+        <p class="sub">We crossed the Mountain 🏔️, the Lake 🏞️ and the Forest 🌳 — here's the plan for the best birthday ever:</p>
         <pre id="summary" class="summary"></pre>
         <div class="btn-row">
           <button class="btn" onclick="copyChoices()">📋 Copy my choices</button>
