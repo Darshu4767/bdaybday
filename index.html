@@ -21,8 +21,40 @@
   </div>
 
   <main class="wrap">
+    <!-- ===== ANIMATED "DORA SAYS HI" SCENE ===== -->
+    <section id="scene" class="screen active">
+      <div class="card scene-card">
+        <!-- CSS-art explorer girl (Dora-inspired, not the copyrighted character) -->
+        <div class="explorer" aria-hidden="true">
+          <div class="head">
+            <div class="hair"></div>
+            <div class="face">
+              <span class="eye left"></span>
+              <span class="eye right"></span>
+              <span class="mouth"></span>
+            </div>
+          </div>
+          <div class="body">
+            <span class="pack">🎒</span>
+            <span class="arm wave">👋</span>
+          </div>
+        </div>
+
+        <!-- Speech bubble that types out the poem -->
+        <div class="bubble">
+          <p id="poem" class="poem"></p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn wiggle" onclick="playPoem()">🔊 Hear it again</button>
+          <button class="btn big wiggle" onclick="goToIntro()">Let's go! ⭐</button>
+        </div>
+        <p class="tiny">Tap 🔊 if you don't hear the voice — some phones need a tap first.</p>
+      </div>
+    </section>
+
     <!-- ===== INTRO SCREEN ===== -->
-    <section id="intro" class="screen active">
+    <section id="intro" class="screen">
       <div class="card intro-card">
         <div class="backpack">🎒</div>
         <h1>¡Hola! Let's plan <span id="friendName">Priya</span>'s<br />Birthday Adventure! 🗺️</h1>
