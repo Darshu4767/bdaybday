@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Adventure! 🎒⭐</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Floating decorative stars/sparkles -->
+  <div class="sky" aria-hidden="true">
+    <span class="star s1">⭐</span>
+    <span class="star s2">✨</span>
+    <span class="star s3">🌟</span>
+    <span class="star s4">⭐</span>
+    <span class="star s5">✨</span>
+    <span class="star s6">🌟</span>
+  </div>
+
+  <main class="wrap">
+    <!-- ===== INTRO SCREEN ===== -->
+    <section id="intro" class="screen active">
+      <div class="card intro-card">
+        <div class="backpack">🎒</div>
+        <h1>¡Hola! Let's plan <span id="friendName">Priya</span>'s<br />Birthday Adventure! 🗺️</h1>
+        <p class="sub">Help us map out the perfect day — pick your favourites and we'll do the rest. Vámonos! 🐵</p>
+        <button class="btn big wiggle" onclick="startAdventure()">Start the Adventure ⭐</button>
+      </div>
+    </section>
+
+    <!-- ===== FORM SCREEN ===== -->
+    <section id="form" class="screen">
+      <form id="planner" onsubmit="return finish(event)">
+
+        <!-- Q1: How to spend the day -->
+        <div class="card q">
+          <h2>🎉 How do you want to spend your birthday?</h2>
+          <div class="cards">
+            <label class="choice">
+              <input type="radio" name="day" value="🎈 Club night" required />
+              <span class="choice-inner"><span class="ico">🎈</span>Club night</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="day" value="🏠 Vibe at home" />
+              <span class="choice-inner"><span class="ico">🏠</span>Vibe at home</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="day" value="🥾 Short hike + picnic" />
+              <span class="choice-inner"><span class="ico">🥾</span>Short hike + picnic</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q2: Cake flavour -->
+        <div class="card q">
+          <h2>🎂 Birthday cake flavour</h2>
+          <div class="cards small">
+            <label class="choice"><input type="radio" name="cake" value="Chocolate" required /><span class="choice-inner"><span class="ico">🍫</span>Chocolate</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Vanilla" /><span class="choice-inner"><span class="ico">🍰</span>Vanilla</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Red Velvet" /><span class="choice-inner"><span class="ico">❤️</span>Red Velvet</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Strawberry" /><span class="choice-inner"><span class="ico">🍓</span>Strawberry</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Butterscotch" /><span class="choice-inner"><span class="ico">🍮</span>Butterscotch</span></label>
+            <label class="choice"><input type="radio" name="cake" value="__other" onchange="toggleOther(this)" /><span class="choice-inner"><span class="ico">✍️</span>Other</span></label>
+          </div>
+          <input type="text" id="cakeOther" class="txt hidden" placeholder="Tell us your dream flavour..." />
+        </div>
+
+        <!-- Q3: Gift bag type (with images) -->
+        <div class="card q">
+          <h2>👜 Birthday gift — which bag?</h2>
+          <div class="cards bags">
+            <label class="choice bag">
+              <input type="radio" name="bag" value="Shoulder bag" required />
+              <span class="choice-inner">
+                <!-- Swap this src with a real photo later -->
+                <img src="https://placehold.co/300x220/ff9f1c/ffffff?text=Shoulder+Bag" alt="Shoulder bag" />
+                Shoulder bag
+              </span>
+            </label>
+            <label class="choice bag">
+              <input type="radio" name="bag" value="Clutch" />
+              <span class="choice-inner">
+                <img src="https://placehold.co/300x220/9b5de5/ffffff?text=Clutch" alt="Clutch" />
+                Clutch
+              </span>
+            </label>
+            <label class="choice bag">
+              <input type="radio" name="bag" value="Bigger bag / tote" />
+              <span class="choice-inner">
+                <img src="https://placehold.co/300x220/06d6a0/ffffff?text=Tote" alt="Bigger bag / tote" />
+                Bigger bag / tote
+              </span>
+            </label>
+          </div>
+          <label class="lbl" for="bagLinks">Paste links to bags you love 💖</label>
+          <textarea id="bagLinks" class="txt" rows="3" placeholder="Paste one or more links here..."></textarea>
+        </div>
+
+        <!-- Extras -->
+        <div class="card q">
+          <h2>✨ A few extra touches</h2>
+
+          <label class="lbl" for="dress">Dress code / theme colour 👗</label>
+          <input type="text" id="dress" class="txt" placeholder="e.g. pastel pink, all-black, glam..." />
+
+          <label class="lbl" for="playlist">Favourite music / playlist link 🎵</label>
+          <input type="text" id="playlist" class="txt" placeholder="Paste a Spotify / YouTube link..." />
+
+          <p class="lbl">Guest vibe 👯</p>
+          <div class="cards small">
+            <label class="choice"><input type="radio" name="guests" value="Just us" /><span class="choice-inner">Just us</span></label>
+            <label class="choice"><input type="radio" name="guests" value="Small group" /><span class="choice-inner">Small group</span></label>
+            <label class="choice"><input type="radio" name="guests" value="Big party" /><span class="choice-inner">Big party</span></label>
+          </div>
+
+          <p class="lbl">Surprise me? 🎁</p>
+          <div class="cards small">
+            <label class="choice"><input type="radio" name="surprise" value="Yes, surprise me!" /><span class="choice-inner">Yes, surprise me!</span></label>
+            <label class="choice"><input type="radio" name="surprise" value="No, I want the plan" /><span class="choice-inner">No, tell me the plan</span></label>
+          </div>
+
+          <label class="lbl" for="wishlist">Wishlist / anything else you want 📝</label>
+          <textarea id="wishlist" class="txt" rows="3" placeholder="Dream big! Anything at all..."></textarea>
+        </div>
+
+        <button type="submit" class="btn big wiggle">Finish the Adventure! 🎉</button>
+      </form>
+    </section>
+
+    <!-- ===== CELEBRATION SCREEN ===== -->
+    <section id="done" class="screen">
+      <div class="card done-card">
+        <div class="backpack">🌟</div>
+        <h1>¡Lo hicimos! We did it! 🎉</h1>
+        <p class="sub">Here's the plan for the best birthday ever:</p>
+        <pre id="summary" class="summary"></pre>
+        <div class="btn-row">
+          <button class="btn" onclick="copyChoices()">📋 Copy my choices</button>
+          <a id="mailBtn" class="btn" href="#">✉️ Send to my friend</a>
+        </div>
+        <button class="btn ghost" onclick="location.reload()">↺ Start over</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
