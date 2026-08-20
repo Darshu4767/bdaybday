@@ -20,126 +20,87 @@ body {
 
 h1, h2 { font-family: "Baloo 2", cursive; line-height: 1.15; }
 
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
 /* ============================================================
-   ANIMATED FOREST BACKGROUND
+   AMBIENT FOREST BACKDROP
+   Kept calm and behind everything so the map stays the star.
    ============================================================ */
 .forest {
   position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
   background: linear-gradient(#bdeaff 0%, #d9f6ff 35%, #eafff0 60%, #d6f5c4 100%);
 }
 
-/* Sun */
 .sun {
-  position: absolute; top: 6%; right: 12%;
-  width: 90px; height: 90px; border-radius: 50%;
+  position: absolute; top: 5%; right: 10%;
+  width: 84px; height: 84px; border-radius: 50%;
   background: radial-gradient(circle, #fff6b0 0%, #ffd84d 60%, #ffc024 100%);
-  box-shadow: 0 0 60px 20px rgba(255,216,77,.55);
-  animation: sunPulse 5s ease-in-out infinite;
+  box-shadow: 0 0 60px 20px rgba(255,216,77,.45);
+  animation: sunPulse 6s ease-in-out infinite;
 }
-@keyframes sunPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+@keyframes sunPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
 
-/* Clouds drifting across */
-.cloud { position: absolute; font-size: 3rem; opacity: .9; }
-.c1 { top: 8%;  left: -12%; animation: drift 34s linear infinite; }
-.c2 { top: 18%; left: -20%; font-size: 4rem; animation: drift 48s linear infinite; animation-delay: 6s; }
-.c3 { top: 4%;  left: -30%; font-size: 2.4rem; animation: drift 40s linear infinite; animation-delay: 14s; }
-@keyframes drift { from { transform: translateX(0); } to { transform: translateX(140vw); } }
+.cloud { position: absolute; font-size: 3rem; opacity: .75; }
+.c1 { top: 7%;  left: -12%; animation: drift 40s linear infinite; }
+.c2 { top: 17%; left: -20%; font-size: 4rem; animation: drift 56s linear infinite; animation-delay: 6s; }
+.c3 { top: 3%;  left: -30%; font-size: 2.4rem; animation: drift 48s linear infinite; animation-delay: 14s; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(145vw); } }
 
-/* Far hills */
 .hills {
-  position: absolute; bottom: 16%; left: -5%; right: -5%; height: 32%;
+  position: absolute; bottom: 10%; left: -5%; right: -5%; height: 30%; opacity: .8;
   background:
     radial-gradient(120px 80px at 20% 100%, #8fd66b 0 99%, transparent 100%),
     radial-gradient(160px 100px at 55% 100%, #7cc95a 0 99%, transparent 100%),
     radial-gradient(140px 90px at 85% 100%, #8fd66b 0 99%, transparent 100%);
 }
 
-/* Tree rows */
-.tree-row { position: absolute; left: 0; right: 0; display: flex; justify-content: space-around; }
-.tree-row.back  { bottom: 20%; filter: brightness(.9); }
-.tree-row.front { bottom: 8%; }
-.tree-row.back .tree  { font-size: 2.6rem; }
-.tree-row.front .tree { font-size: 4.6rem; }
-.tree { display: inline-block; transform-origin: bottom center; animation: treeSway 4s ease-in-out infinite; }
-.tree:nth-child(2n) { animation-delay: .6s; }
-.tree:nth-child(3n) { animation-delay: 1.2s; }
-.tree:nth-child(4n) { animation-delay: 1.8s; }
+.tree-row { position: absolute; left: 0; right: 0; bottom: 9%; display: flex; justify-content: space-around; opacity: .55; }
+.tree-row .tree { font-size: 2.6rem; display: inline-block; transform-origin: bottom center; animation: treeSway 5s ease-in-out infinite; }
+.tree-row .tree:nth-child(2n) { animation-delay: .7s; }
+.tree-row .tree:nth-child(3n) { animation-delay: 1.4s; }
 @keyframes treeSway { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 
-/* Ground */
-.ground { position: absolute; bottom: 0; left: 0; right: 0; height: 12%; background: linear-gradient(#6bbf4a, #4f9e33); }
-.grass {
-  position: absolute; bottom: 11%; left: 0; right: 0; height: 22px;
-  background: repeating-linear-gradient(90deg, #4f9e33 0 6px, #5fb33e 6px 12px);
-  clip-path: polygon(0 100%, 2% 0, 4% 100%, 6% 10%, 8% 100%, 10% 0, 12% 100%, 14% 10%, 16% 100%, 18% 0, 20% 100%, 22% 10%, 24% 100%, 26% 0, 28% 100%, 30% 10%, 32% 100%, 34% 0, 36% 100%, 38% 10%, 40% 100%, 42% 0, 44% 100%, 46% 10%, 48% 100%, 50% 0, 52% 100%, 54% 10%, 56% 100%, 58% 0, 60% 100%, 62% 10%, 64% 100%, 66% 0, 68% 100%, 70% 10%, 72% 100%, 74% 0, 76% 100%, 78% 10%, 80% 100%, 82% 0, 84% 100%, 86% 10%, 88% 100%, 90% 0, 92% 100%, 94% 10%, 96% 100%, 98% 0, 100% 100%);
-}
+.ground { position: absolute; bottom: 0; left: 0; right: 0; height: 10%; background: linear-gradient(#6bbf4a, #4f9e33); }
 
-/* Hanging swaying vines */
-.vine { position: absolute; top: -6px; font-size: 2.4rem; transform-origin: top center; animation: vineSwing 3.5s ease-in-out infinite; }
-.v1 { left: 8%;  animation-delay: 0s; }
-.v2 { left: 32%; animation-delay: .8s; font-size: 2rem; }
-.v3 { left: 64%; animation-delay: 1.4s; }
-.v4 { left: 88%; animation-delay: .4s; font-size: 2rem; }
-@keyframes vineSwing { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+.floaty { position: absolute; font-size: 1.8rem; opacity: .75; will-change: transform; }
+.butterfly.b1 { top: 28%; left: -8%;  animation: flyAcross 26s linear infinite, bob 2s ease-in-out infinite; }
+.butterfly.b2 { top: 62%; left: -14%; font-size: 1.4rem; animation: flyAcross 34s linear infinite, bob 1.6s ease-in-out infinite; animation-delay: 7s; }
+.bird { top: 12%; left: -10%; animation: flyAcross 30s linear infinite, bob 2.4s ease-in-out infinite; animation-delay: 4s; }
+@keyframes flyAcross { from { transform: translateX(0); } to { transform: translateX(135vw); } }
+@keyframes bob { 0%,100%{ margin-top: 0; } 50%{ margin-top: -14px; } }
 
-/* Floating creatures & objects */
-.floaty { position: absolute; font-size: 2rem; will-change: transform; }
-.butterfly.b1 { top: 30%; left: -8%;  animation: flyAcross 18s linear infinite, bob 2s ease-in-out infinite; }
-.butterfly.b2 { top: 55%; left: -14%; font-size: 1.6rem; animation: flyAcross 24s linear infinite, bob 1.6s ease-in-out infinite; animation-delay: 5s; }
-.bird   { top: 14%; left: -10%; animation: flyAcross 20s linear infinite, bob 2.4s ease-in-out infinite; animation-delay: 3s; }
-.parrot { top: 42%; left: -12%; font-size: 2.2rem; animation: flyAcross 28s linear infinite, bob 2s ease-in-out infinite; animation-delay: 9s; }
-.bee    { top: 66%; left: -6%;  font-size: 1.5rem; animation: flyAcross 16s linear infinite, bob 1s ease-in-out infinite; animation-delay: 2s; }
-.leaf.l1 { top: 10%; left: 20%; animation: fall 12s linear infinite; }
-.leaf.l2 { top: 10%; left: 55%; animation: fall 15s linear infinite; animation-delay: 4s; }
-.leaf.l3 { top: 10%; left: 80%; animation: fall 13s linear infinite; animation-delay: 8s; }
-@keyframes flyAcross { from { transform: translateX(0); } to { transform: translateX(130vw); } }
-@keyframes bob { 0%,100%{ margin-top: 0; } 50%{ margin-top: -16px; } }
-@keyframes fall {
-  0%   { transform: translateY(-10px) translateX(0) rotate(0); opacity: 0; }
-  10%  { opacity: 1; }
-  100% { transform: translateY(90vh) translateX(60px) rotate(360deg); opacity: 0; }
-}
-
-/* Fireflies / glowing sparkles */
 .firefly {
-  position: absolute; width: 8px; height: 8px; border-radius: 50%;
-  background: #fff7a8; box-shadow: 0 0 10px 4px rgba(255,238,120,.9);
-  animation: glow 3s ease-in-out infinite;
+  position: absolute; width: 7px; height: 7px; border-radius: 50%;
+  background: #fff7a8; box-shadow: 0 0 10px 4px rgba(255,238,120,.85);
+  animation: glow 4s ease-in-out infinite;
 }
-.f1 { top: 40%; left: 15%; animation-delay: 0s; }
-.f2 { top: 60%; left: 35%; animation-delay: .7s; }
-.f3 { top: 50%; left: 60%; animation-delay: 1.3s; }
-.f4 { top: 70%; left: 78%; animation-delay: 1.9s; }
-.f5 { top: 35%; left: 85%; animation-delay: 2.4s; }
-.f6 { top: 75%; left: 10%; animation-delay: 1.1s; }
+.f1 { top: 42%; left: 8%;  animation-delay: 0s; }
+.f2 { top: 68%; left: 26%; animation-delay: .9s; }
+.f3 { top: 52%; left: 74%; animation-delay: 1.8s; }
+.f4 { top: 74%; left: 92%; animation-delay: 2.6s; }
 @keyframes glow { 0%,100%{ opacity: 0; transform: scale(.6); } 50%{ opacity: 1; transform: scale(1.3); } }
 
-/* Floating stars */
-.star { position: absolute; font-size: 1.7rem; opacity: .9; animation: floatStar 7s ease-in-out infinite; }
-.s1 { top: 12%; left: 8%; }
-.s2 { top: 26%; right: 14%; animation-delay: 1s; }
-.s3 { top: 46%; left: 6%; animation-delay: 2s; }
-.s4 { top: 22%; left: 50%; animation-delay: 1.5s; }
-@keyframes floatStar { 0%,100%{ transform: translateY(0) rotate(0);} 50%{ transform: translateY(-20px) rotate(15deg);} }
+/* ============================================================
+   LAYOUT + SCREENS
+   ============================================================ */
+.wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 20px 14px 48px; }
 
-.wrap { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
-
-/* Screens */
 .screen { display: none; animation: fadeIn .5s ease; }
 .screen.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
-/* Cards — now like a bright clearing on top of the forest */
 .card {
-  background: rgba(255,253,247,.94);
-  backdrop-filter: blur(2px);
+  background: rgba(255,253,247,.96);
   border: 4px solid #fff;
   border-radius: 26px;
   padding: 24px;
   margin: 0 0 22px;
   box-shadow: 0 14px 34px rgba(43,45,66,.25);
 }
-.intro-card, .done-card, .scene-card { text-align: center; padding: 34px 24px; }
+.done-card, .scene-card { text-align: center; padding: 34px 24px; max-width: 720px; margin-inline: auto; }
 .backpack { font-size: 4rem; animation: bounce 1.6s ease-in-out infinite; }
 @keyframes bounce { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-14px);} }
 
@@ -149,7 +110,7 @@ h2 { font-size: 1.3rem; margin: 0 0 16px; }
 .sub { font-size: 1.05rem; opacity: .85; }
 .tiny { font-size: .82rem; opacity: .6; margin-top: 10px; }
 
-/* ===== Animated explorer girl (Dora-inspired CSS art) ===== */
+/* ===== Intro explorer girl (CSS art) ===== */
 .explorer { width: 160px; margin: 0 auto 6px; position: relative; animation: sway 3s ease-in-out infinite; }
 @keyframes sway { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 .head { width: 110px; height: 110px; margin: 0 auto; position: relative; }
@@ -166,37 +127,196 @@ h2 { font-size: 1.3rem; margin: 0 0 16px; }
 .arm.wave { position: absolute; right: -22px; top: 2px; font-size: 1.8rem; transform-origin: bottom left; animation: wave 1s ease-in-out infinite; }
 @keyframes wave { 0%,100%{transform:rotate(0)} 50%{transform:rotate(28deg)} }
 
-/* Speech bubble */
 .bubble { position: relative; max-width: 460px; margin: 12px auto 4px; background: #fff; border: 3px solid var(--purple); border-radius: 20px; padding: 18px 20px; }
 .bubble::after { content: ""; position: absolute; top: -16px; left: 50%; transform: translateX(-50%); border: 9px solid transparent; border-bottom-color: var(--purple); }
 .poem { margin: 0; white-space: pre-wrap; text-align: center; font-family: "Baloo 2", cursive; font-size: 1.1rem; color: var(--ink); min-height: 5.5em; }
 
-/* Choice cards */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.cards.small { grid-template-columns: repeat(3, 1fr); }
-.cards.bags { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 560px) {
-  .cards, .cards.small, .cards.bags { grid-template-columns: 1fr 1fr; }
+/* ============================================================
+   THE ADVENTURE MAP
+   ============================================================ */
+.journey-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  flex-wrap: wrap; margin: 0 0 10px;
 }
+.journey-title {
+  margin: 0; font-family: "Baloo 2", cursive; font-weight: 800; font-size: 1.25rem;
+  background: rgba(255,253,247,.94); border: 3px solid #fff; border-radius: 999px;
+  padding: 8px 18px; box-shadow: 0 6px 16px rgba(43,45,66,.18);
+}
+.journey-title span { color: var(--purple); }
+
+/* The map itself: the SVG viewBox is set from its pixel size in script.js, so
+   trail coordinates map straight onto percentage positions for stops + walker. */
+.map-scene {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 52vh, 470px);
+  border-radius: 28px;
+  overflow: hidden;
+  border: 5px solid #fff;
+  box-shadow: 0 16px 40px rgba(43,45,66,.28);
+  background:
+    radial-gradient(circle at 80% 12%, rgba(255,241,168,.85) 0 12%, transparent 42%),
+    linear-gradient(#cdeeff 0%, #dff7e4 42%, #bfe89a 78%, #a9dd80 100%);
+}
+
+/* Scenery framing the trail (kept sparse + off the path) */
+.map-scenery { position: absolute; inset: 0; pointer-events: none; }
+.scen { position: absolute; font-size: 2.4rem; opacity: .9; transform-origin: bottom center; animation: treeSway 5s ease-in-out infinite; }
+.scen.t1 { left: 4%;  top: 20%; }
+.scen.t2 { left: 24%; top: 8%;  font-size: 3rem; animation-delay: .5s; }
+.scen.t3 { left: 46%; top: 68%; animation-delay: 1s; }
+.scen.t4 { left: 62%; top: 12%; font-size: 2.8rem; animation-delay: 1.5s; }
+.scen.t5 { left: 86%; top: 52%; font-size: 3rem; animation-delay: .8s; }
+.scen.t6 { left: 14%; top: 66%; font-size: 1.8rem; animation-delay: 1.2s; }
+.scen.t7 { left: 36%; top: 88%; font-size: 1.5rem; animation: none; }
+.scen.t8 { left: 72%; top: 82%; font-size: 1.5rem; animation: none; }
+.scen.t9 { left: 55%; top: 30%; font-size: 1.6rem; animation: none; }
+
+/* The trail */
+.trail-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.trail-shadow { stroke: rgba(43,45,66,.14); stroke-width: 16; stroke-linecap: round; }
+.trail-line {
+  stroke: #fff; stroke-width: 10; stroke-linecap: round;
+  stroke-dasharray: 2 26; opacity: .95;
+}
+.trail-walked {
+  stroke: var(--orange); stroke-width: 12; stroke-linecap: round; opacity: .85;
+}
+
+/* Map stops */
+.stops { list-style: none; margin: 0; padding: 0; }
+.stop {
+  position: absolute; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  text-align: center; width: 120px;
+}
+.stop-dot {
+  position: relative;
+  width: 58px; height: 58px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #fff; border: 4px solid #e6d6b8;
+  box-shadow: 0 6px 14px rgba(43,45,66,.25);
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.stop-ico { font-size: 1.6rem; line-height: 1; }
+.stop-check {
+  position: absolute; right: -6px; bottom: -6px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--green); color: #fff; font-weight: 700; font-size: .85rem;
+  display: grid; place-items: center; opacity: 0; transform: scale(.4);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.stop-label {
+  font-family: "Baloo 2", cursive; font-weight: 700; font-size: .85rem;
+  background: rgba(255,253,247,.94); border-radius: 999px; padding: 2px 10px;
+  box-shadow: 0 3px 8px rgba(43,45,66,.18); white-space: nowrap;
+}
+.stop.is-current .stop-dot {
+  border-color: var(--purple);
+  background: linear-gradient(160deg, #fff, #f3e8ff);
+  animation: stopPulse 1.4s ease-in-out infinite;
+}
+@keyframes stopPulse {
+  0%,100% { transform: scale(1);   box-shadow: 0 6px 14px rgba(43,45,66,.25), 0 0 0 0 rgba(155,93,229,.55); }
+  50%     { transform: scale(1.1); box-shadow: 0 6px 14px rgba(43,45,66,.25), 0 0 0 14px rgba(155,93,229,0); }
+}
+.stop.is-done .stop-dot { border-color: var(--green); background: #eafff6; }
+.stop.is-done .stop-check { opacity: 1; transform: scale(1); }
+
+/* ===== The walking explorer girl ===== */
+.walker {
+  position: absolute; left: 0; top: 0;
+  width: 46px; height: 66px;
+  transform: translate(-50%, -86%);
+  z-index: 4; pointer-events: none;
+  transition: transform .3s ease;
+}
+/* When she stops at a marker, step aside so the stop icon stays readable */
+.walker.is-arrived { transform: translate(calc(-50% - 38px), -70%); }
+.walker.face-left .w-body { transform: scaleX(-1); }
+.w-body { position: relative; width: 46px; height: 62px; transform-origin: bottom center; }
+.w-head {
+  position: absolute; top: 0; left: 8px; width: 30px; height: 30px; border-radius: 50%;
+  background: #f2c79b; border-top: 9px solid #4a2c1a; box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+}
+.w-eye { position: absolute; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--ink); }
+.w-eye:nth-of-type(1) { left: 15px; }
+.w-eye:nth-of-type(2) { left: 23px; }
+.w-body::after {
+  content: ""; position: absolute; top: 28px; left: 10px;
+  width: 26px; height: 22px; border-radius: 12px 12px 8px 8px; background: var(--orange);
+}
+.w-pack { position: absolute; top: 28px; left: -4px; font-size: 1.05rem; z-index: 2; }
+.w-arm {
+  position: absolute; top: 32px; left: 30px; width: 8px; height: 18px; border-radius: 6px;
+  background: #f2c79b; transform-origin: top center; z-index: 3;
+}
+.w-leg { position: absolute; top: 48px; width: 8px; height: 16px; border-radius: 5px; background: #ff5d8f; transform-origin: top center; }
+.w-leg.back  { left: 14px; background: #d94b76; }
+.w-leg.front { left: 24px; }
+.w-shadow {
+  position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+  width: 34px; height: 9px; border-radius: 50%; background: rgba(43,45,66,.2);
+}
+
+/* Idle / arrived pose — a gentle happy bounce */
+.walker .w-body { animation: idleBounce 1.8s ease-in-out infinite; }
+.walker .w-arm  { animation: idleArm 1.8s ease-in-out infinite; }
+@keyframes idleBounce { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-2deg); } }
+@keyframes idleArm    { 0%,100% { transform: rotate(4deg); } 50% { transform: rotate(-10deg); } }
+
+/* Walking pose — bobbing, leaning, swinging arm + legs */
+.walker.is-walking .w-body { animation: walkBob .42s ease-in-out infinite; }
+.walker.is-walking .w-arm  { animation: swingArm .42s ease-in-out infinite; }
+.walker.is-walking .w-leg.front { animation: swingLegA .42s ease-in-out infinite; }
+.walker.is-walking .w-leg.back  { animation: swingLegB .42s ease-in-out infinite; }
+.walker.is-walking .w-shadow { animation: shadowPulse .42s ease-in-out infinite; }
+@keyframes walkBob   { 0%,100% { transform: translateY(0) rotate(4deg); } 50% { transform: translateY(-6px) rotate(6deg); } }
+@keyframes swingArm  { 0%,100% { transform: rotate(34deg); } 50% { transform: rotate(-30deg); } }
+@keyframes swingLegA { 0%,100% { transform: rotate(28deg); } 50% { transform: rotate(-28deg); } }
+@keyframes swingLegB { 0%,100% { transform: rotate(-28deg); } 50% { transform: rotate(28deg); } }
+@keyframes shadowPulse { 0%,100% { transform: translateX(-50%) scaleX(1); opacity: .2; } 50% { transform: translateX(-50%) scaleX(.75); opacity: .12; } }
+
+/* ===== Question cards that pop up under the map at each stop ===== */
+.stop-panels { position: relative; }
+.stop-panel {
+  width: min(620px, 100%);
+  margin: 18px auto 0;
+  padding: 20px 22px;
+  animation: popIn .35s cubic-bezier(.2,1.3,.5,1) both;
+}
+.stop-panel:focus { outline: none; }
+@keyframes popIn { from { opacity: 0; transform: translateY(20px) scale(.94); } to { opacity: 1; transform: none; } }
+.stop-panel h2 { font-size: 1.15rem; margin: 0 0 14px; }
+.panel-place {
+  margin: 0 0 4px; font-family: "Baloo 2", cursive; font-weight: 700;
+  color: var(--purple); font-size: .95rem; letter-spacing: .02em;
+}
+.panel-err { margin: 10px 0 0; color: #c0392b; font-weight: 600; font-size: .92rem; }
+.stop-panel .btn { margin-top: 14px; }
+
+/* Choice cards */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .choice { cursor: pointer; }
 .choice input { position: absolute; opacity: 0; }
 .choice-inner {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-  text-align: center; font-weight: 600; font-size: .98rem;
-  padding: 16px 10px; border-radius: 18px;
+  text-align: center; font-weight: 600; font-size: .95rem;
+  padding: 14px 8px; border-radius: 18px;
   background: #fff; border: 3px solid #ffe3b3;
   transition: transform .15s ease, border-color .15s ease, background .15s ease;
   height: 100%;
 }
-.choice .ico { font-size: 1.8rem; }
+.choice .ico { font-size: 1.7rem; }
 .choice:hover .choice-inner { transform: translateY(-4px) rotate(-1deg); }
 .choice input:checked + .choice-inner { border-color: var(--purple); background: linear-gradient(160deg, #fff, #f3e8ff); box-shadow: 0 8px 18px rgba(155,93,229,.3); }
-.choice input:focus-visible + .choice-inner { outline: 3px solid var(--orange); }
+.choice input:focus-visible + .choice-inner { outline: 3px solid var(--orange); outline-offset: 2px; }
 .choice.bag img { width: 100%; border-radius: 12px; margin-bottom: 6px; display: block; }
 
 /* Text inputs */
-.lbl { display: block; font-weight: 600; margin: 16px 0 6px; }
-.txt { width: 100%; font-family: inherit; font-size: 1rem; padding: 12px 14px; border-radius: 14px; border: 3px solid #ffe3b3; background: #fff; resize: vertical; }
+.lbl { display: block; font-weight: 600; margin: 14px 0 6px; }
+.txt { width: 100%; font-family: inherit; font-size: 1rem; padding: 11px 14px; border-radius: 14px; border: 3px solid #ffe3b3; background: #fff; resize: vertical; }
 .txt:focus { outline: none; border-color: var(--green); }
 .hidden { display: none; }
 
@@ -209,11 +329,46 @@ h2 { font-size: 1.3rem; margin: 0 0 16px; }
   box-shadow: 0 8px 0 #d97e00; transition: transform .1s ease, box-shadow .1s ease;
 }
 .btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #d97e00; }
-.btn.big { font-size: 1.25rem; padding: 16px 34px; margin-top: 8px; }
+.btn.big { font-size: 1.2rem; padding: 15px 32px; }
+.btn.slim { font-size: .92rem; padding: 9px 18px; box-shadow: 0 5px 0 #d97e00; background: var(--purple); box-shadow: 0 5px 0 #6f3fb0; }
 .btn.ghost { background: transparent; color: var(--ink); box-shadow: none; text-decoration: underline; }
+.btn:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 .wiggle:hover { animation: wig .4s ease; }
 @keyframes wig { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-3deg)} 75%{transform:rotate(3deg)} }
 .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 18px 0 10px; }
 
 /* Summary */
 .summary { text-align: left; background: #fff; border: 3px dashed var(--green); border-radius: 16px; padding: 18px; white-space: pre-wrap; font-family: "Fredoka", sans-serif; font-size: 1rem; line-height: 1.6; }
+
+/* ============================================================
+   MOBILE — the trail becomes a tall zig-zag so every stop fits
+   ============================================================ */
+@media (max-width: 720px) {
+  .map-scene { height: clamp(320px, 46vh, 430px); }
+  .journey-title { font-size: 1rem; padding: 7px 14px; }
+  .stop { width: 96px; }
+  .stop-dot { width: 48px; height: 48px; border-width: 3px; }
+  .stop-ico { font-size: 1.3rem; }
+  .stop-label { font-size: .72rem; }
+  .walker.is-arrived { transform: translate(calc(-50% - 30px), -70%); }
+  .stop-panel { padding: 16px; }
+  .stop-panel h2 { font-size: 1.05rem; }
+  .cards, .cards.small, .cards.bags { grid-template-columns: 1fr 1fr; }
+  .scen { font-size: 1.8rem; }
+  .scen.t2, .scen.t4, .scen.t5 { font-size: 2.1rem; }
+  h1 { font-size: 1.6rem; }
+}
+
+/* ============================================================
+   REDUCED MOTION — no walking/idle/ambient animation,
+   everything is still fully answerable.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .walker .w-body, .walker .w-arm, .walker .w-leg, .walker .w-shadow { animation: none !important; }
+  .stop.is-current .stop-dot { box-shadow: 0 0 0 6px rgba(155,93,229,.4); }
+}

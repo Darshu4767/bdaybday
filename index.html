@@ -10,73 +10,32 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- ===== ANIMATED FOREST BACKGROUND ===== -->
+  <!-- ===== AMBIENT FOREST BACKDROP (frames the map, stays out of the way) ===== -->
   <div class="forest" aria-hidden="true">
-    <!-- Sky + sun -->
     <div class="sun"></div>
-
-    <!-- Drifting clouds -->
     <div class="cloud c1">☁️</div>
     <div class="cloud c2">☁️</div>
     <div class="cloud c3">☁️</div>
-
-    <!-- Far hills -->
     <div class="hills"></div>
-
-    <!-- Back layer of trees (small, slow) -->
     <div class="tree-row back">
       <span class="tree">🌲</span><span class="tree">🌳</span><span class="tree">🌲</span>
       <span class="tree">🌳</span><span class="tree">🌲</span><span class="tree">🌳</span>
-      <span class="tree">🌲</span><span class="tree">🌳</span><span class="tree">🌲</span>
     </div>
-
-    <!-- Front layer of trees (big) -->
-    <div class="tree-row front">
-      <span class="tree">🌴</span><span class="tree">🌳</span><span class="tree">🌴</span>
-      <span class="tree">🌳</span><span class="tree">🌴</span><span class="tree">🌳</span>
-      <span class="tree">🌴</span>
-    </div>
-
-    <!-- Ground / grass -->
     <div class="ground"></div>
-    <div class="grass"></div>
-
-    <!-- Hanging swaying vines -->
-    <span class="vine v1">🌿</span>
-    <span class="vine v2">🍃</span>
-    <span class="vine v3">🌿</span>
-    <span class="vine v4">🍃</span>
-
-    <!-- Floating creatures & objects -->
     <span class="floaty butterfly b1">🦋</span>
     <span class="floaty butterfly b2">🦋</span>
     <span class="floaty bird">🐦</span>
-    <span class="floaty leaf l1">🍃</span>
-    <span class="floaty leaf l2">🍂</span>
-    <span class="floaty leaf l3">🍃</span>
-    <span class="floaty bee">🐝</span>
-    <span class="floaty parrot">🦜</span>
-
-    <!-- Fireflies / sparkles -->
     <span class="firefly f1"></span>
     <span class="firefly f2"></span>
     <span class="firefly f3"></span>
     <span class="firefly f4"></span>
-    <span class="firefly f5"></span>
-    <span class="firefly f6"></span>
-
-    <!-- Floating stars -->
-    <span class="star s1">⭐</span>
-    <span class="star s2">✨</span>
-    <span class="star s3">🌟</span>
-    <span class="star s4">✨</span>
   </div>
 
   <main class="wrap">
-    <!-- ===== ANIMATED "DORA SAYS HI" SCENE ===== -->
-    <section id="scene" class="screen active">
+    <!-- ===== 1. INTRO: the talking explorer girl + poem ===== -->
+    <section id="scene" class="screen active" aria-label="Welcome">
       <div class="card scene-card">
-        <!-- CSS-art explorer girl (Dora-inspired, not the copyrighted character) -->
+        <!-- CSS-art explorer girl (Dora-inspired original art, no copyrighted images) -->
         <div class="explorer" aria-hidden="true">
           <div class="head">
             <div class="hair"></div>
@@ -98,134 +57,198 @@
         </div>
 
         <div class="btn-row">
-          <button class="btn wiggle" onclick="playPoem()">🔊 Hear it again</button>
-          <button class="btn big wiggle" onclick="goToIntro()">Let's go! ⭐</button>
+          <button type="button" class="btn wiggle" onclick="playPoem()">🔊 Hear it again</button>
+          <button type="button" class="btn big wiggle" onclick="startJourney()">Let's go! ⭐</button>
         </div>
         <p class="tiny">Tap 🔊 if you don't hear the voice — some phones need a tap first.</p>
       </div>
     </section>
 
-    <!-- ===== INTRO SCREEN ===== -->
-    <section id="intro" class="screen">
-      <div class="card intro-card">
-        <div class="backpack">🎒</div>
-        <h1>¡Hola! Let's plan <span id="friendName">Priya</span>'s<br />Birthday Adventure! 🗺️</h1>
-        <p class="sub">Help us map out the perfect day — pick your favourites and we'll do the rest. Vámonos! 🐵</p>
-        <button class="btn big wiggle" onclick="startAdventure()">Start the Adventure ⭐</button>
+    <!-- ===== 2. THE ADVENTURE MAP ===== -->
+    <section id="journey" class="screen" aria-label="Adventure map">
+      <div class="journey-bar">
+        <p class="journey-title">🗺️ <span id="mapTitleName">Kaviya</span>'s Birthday Adventure Map</p>
+        <button type="button" id="skipWalkBtn" class="btn slim">⏭ Skip walking</button>
       </div>
+
+      <div class="map-scene" id="mapScene">
+        <!-- Scenery that frames the trail -->
+        <div class="map-scenery" aria-hidden="true">
+          <span class="scen t1">🌳</span><span class="scen t2">🌴</span><span class="scen t3">🌲</span>
+          <span class="scen t4">🌳</span><span class="scen t5">🌴</span><span class="scen t6">🌿</span>
+          <span class="scen t7">🍄</span><span class="scen t8">🌸</span><span class="scen t9">🪨</span>
+        </div>
+
+        <!-- The winding dotted trail. The `d` attribute is set by script.js so the
+             shape can switch between the wide desktop trail and the tall phone trail. -->
+        <svg class="trail-svg" id="trailSvg" viewBox="0 0 1000 560"
+             preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+          <path id="trailShadow" class="trail-shadow" d="" fill="none" />
+          <path id="trailWalked" class="trail-walked" d="" fill="none" />
+          <path id="trailPath" class="trail-line" d="" fill="none" />
+        </svg>
+
+        <!-- The 4 map stops. script.js positions each one on the trail. -->
+        <ol class="stops" id="stops">
+          <li class="stop" data-stop="0">
+            <span class="stop-dot"><span class="stop-ico">🌴</span><span class="stop-check">✓</span></span>
+            <span class="stop-label">Jungle Clearing</span>
+          </li>
+          <li class="stop" data-stop="1">
+            <span class="stop-dot"><span class="stop-ico">🍰</span><span class="stop-check">✓</span></span>
+            <span class="stop-label">Cake Cove</span>
+          </li>
+          <li class="stop" data-stop="2">
+            <span class="stop-dot"><span class="stop-ico">👜</span><span class="stop-check">✓</span></span>
+            <span class="stop-label">Gift Grove</span>
+          </li>
+          <li class="stop" data-stop="3">
+            <span class="stop-dot"><span class="stop-ico">⛰️</span><span class="stop-check">✓</span></span>
+            <span class="stop-label">Party Peak</span>
+          </li>
+        </ol>
+
+        <!-- The walking explorer girl (CSS art) that travels along the trail -->
+        <div class="walker" id="walker" aria-hidden="true">
+          <div class="w-body">
+            <span class="w-pack">🎒</span>
+            <div class="w-head">
+              <span class="w-eye"></span>
+              <span class="w-eye"></span>
+            </div>
+            <span class="w-arm"></span>
+            <span class="w-leg back"></span>
+            <span class="w-leg front"></span>
+          </div>
+          <span class="w-shadow"></span>
+        </div>
+
+      </div>
+
+      <!-- Question cards appear below the map, one per stop -->
+      <form id="planner" class="stop-panels" onsubmit="return finish(event)">
+
+          <!-- STOP 1 — Jungle Clearing -->
+          <div class="card stop-panel" id="panel-0" data-panel="0" hidden>
+            <p class="panel-place">🌴 Jungle Clearing</p>
+            <h2>How do you want to spend your birthday?</h2>
+            <div class="cards">
+              <label class="choice">
+                <input type="radio" name="day" value="🎈 Club night" />
+                <span class="choice-inner"><span class="ico">🎈</span>Club night</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="day" value="🏠 Vibe at home" />
+                <span class="choice-inner"><span class="ico">🏠</span>Vibe at home</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="day" value="🥾 Short hike + picnic" />
+                <span class="choice-inner"><span class="ico">🥾</span>Short hike + picnic</span>
+              </label>
+            </div>
+            <p class="panel-err" data-err hidden>Pick one so we can keep going! ⭐</p>
+            <button type="button" class="btn big wiggle" data-next>Vámonos! ➡</button>
+          </div>
+
+          <!-- STOP 2 — Cake Cove -->
+          <div class="card stop-panel" id="panel-1" data-panel="1" hidden>
+            <p class="panel-place">🍰 Cake Cove</p>
+            <h2>Birthday cake flavour</h2>
+            <div class="cards small">
+              <label class="choice"><input type="radio" name="cake" value="Chocolate" /><span class="choice-inner"><span class="ico">🍫</span>Chocolate</span></label>
+              <label class="choice"><input type="radio" name="cake" value="Vanilla" /><span class="choice-inner"><span class="ico">🍰</span>Vanilla</span></label>
+              <label class="choice"><input type="radio" name="cake" value="Red Velvet" /><span class="choice-inner"><span class="ico">❤️</span>Red Velvet</span></label>
+              <label class="choice"><input type="radio" name="cake" value="Strawberry" /><span class="choice-inner"><span class="ico">🍓</span>Strawberry</span></label>
+              <label class="choice"><input type="radio" name="cake" value="Butterscotch" /><span class="choice-inner"><span class="ico">🍮</span>Butterscotch</span></label>
+              <label class="choice"><input type="radio" name="cake" value="__other" onchange="toggleOther(this)" /><span class="choice-inner"><span class="ico">✍️</span>Other</span></label>
+            </div>
+            <label class="lbl hidden" id="cakeOtherLbl" for="cakeOther">Your dream flavour ✨</label>
+            <input type="text" id="cakeOther" class="txt hidden" placeholder="Tell us your dream flavour..." />
+            <p class="panel-err" data-err hidden>Pick a flavour so we can keep going! 🍰</p>
+            <button type="button" class="btn big wiggle" data-next>Vámonos! ➡</button>
+          </div>
+
+          <!-- STOP 3 — Gift Grove -->
+          <div class="card stop-panel" id="panel-2" data-panel="2" hidden>
+            <p class="panel-place">👜 Gift Grove</p>
+            <h2>Which bag?</h2>
+            <div class="cards bags">
+              <label class="choice bag">
+                <input type="radio" name="bag" value="Shoulder bag" />
+                <span class="choice-inner">
+                  <!-- 🖼️ Swap this src with a real photo (a URL, or a file you upload to this repo) -->
+                  <img src="https://placehold.co/300x220/ff9f1c/ffffff?text=Shoulder+Bag" alt="Shoulder bag" loading="lazy" />
+                  Shoulder bag
+                </span>
+              </label>
+              <label class="choice bag">
+                <input type="radio" name="bag" value="Clutch" />
+                <span class="choice-inner">
+                  <img src="https://placehold.co/300x220/9b5de5/ffffff?text=Clutch" alt="Clutch" loading="lazy" />
+                  Clutch
+                </span>
+              </label>
+              <label class="choice bag">
+                <input type="radio" name="bag" value="Bigger bag / tote" />
+                <span class="choice-inner">
+                  <img src="https://placehold.co/300x220/06d6a0/ffffff?text=Tote" alt="Bigger bag / tote" loading="lazy" />
+                  Bigger bag / tote
+                </span>
+              </label>
+            </div>
+            <label class="lbl" for="bagLinks">Paste links to bags you love 💖</label>
+            <textarea id="bagLinks" class="txt" rows="3" placeholder="Paste one or more links here..."></textarea>
+            <p class="panel-err" data-err hidden>Pick a bag so we can keep going! 👜</p>
+            <button type="button" class="btn big wiggle" data-next>Vámonos! ➡</button>
+          </div>
+
+          <!-- STOP 4 — Party Peak (the extras + finale) -->
+          <div class="card stop-panel" id="panel-3" data-panel="3" hidden>
+            <p class="panel-place">⛰️ Party Peak</p>
+            <h2>Last stop — the finishing touches ✨</h2>
+
+            <label class="lbl" for="dress">Dress code / theme colour 👗</label>
+            <input type="text" id="dress" class="txt" placeholder="e.g. pastel pink, all-black, glam..." />
+
+            <label class="lbl" for="playlist">Favourite music / playlist link 🎵</label>
+            <input type="text" id="playlist" class="txt" placeholder="Paste a Spotify / YouTube link..." />
+
+            <p class="lbl">Guest vibe 👯</p>
+            <div class="cards small">
+              <label class="choice"><input type="radio" name="guests" value="Just us" /><span class="choice-inner">Just us</span></label>
+              <label class="choice"><input type="radio" name="guests" value="Small group" /><span class="choice-inner">Small group</span></label>
+              <label class="choice"><input type="radio" name="guests" value="Big party" /><span class="choice-inner">Big party</span></label>
+            </div>
+
+            <p class="lbl">Surprise me? 🎁</p>
+            <div class="cards small">
+              <label class="choice"><input type="radio" name="surprise" value="Yes, surprise me!" /><span class="choice-inner">Yes, surprise me!</span></label>
+              <label class="choice"><input type="radio" name="surprise" value="No, I want the plan" /><span class="choice-inner">No, tell me the plan</span></label>
+            </div>
+
+            <label class="lbl" for="wishlist">Wishlist / anything else you want 📝</label>
+            <textarea id="wishlist" class="txt" rows="3" placeholder="Dream big! Anything at all..."></textarea>
+
+            <button type="submit" class="btn big wiggle">We made it! 🎉</button>
+          </div>
+        </form>
+
+      <!-- Announced to screen readers as the journey moves along -->
+      <p id="journeyStatus" class="sr-only" role="status" aria-live="polite"></p>
     </section>
 
-    <!-- ===== FORM SCREEN ===== -->
-    <section id="form" class="screen">
-      <form id="planner" onsubmit="return finish(event)">
-
-        <!-- Q1: How to spend the day -->
-        <div class="card q">
-          <h2>🎉 How do you want to spend your birthday?</h2>
-          <div class="cards">
-            <label class="choice">
-              <input type="radio" name="day" value="🎈 Club night" required />
-              <span class="choice-inner"><span class="ico">🎈</span>Club night</span>
-            </label>
-            <label class="choice">
-              <input type="radio" name="day" value="🏠 Vibe at home" />
-              <span class="choice-inner"><span class="ico">🏠</span>Vibe at home</span>
-            </label>
-            <label class="choice">
-              <input type="radio" name="day" value="🥾 Short hike + picnic" />
-              <span class="choice-inner"><span class="ico">🥾</span>Short hike + picnic</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Q2: Cake flavour -->
-        <div class="card q">
-          <h2>🎂 Birthday cake flavour</h2>
-          <div class="cards small">
-            <label class="choice"><input type="radio" name="cake" value="Chocolate" required /><span class="choice-inner"><span class="ico">🍫</span>Chocolate</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Vanilla" /><span class="choice-inner"><span class="ico">🍰</span>Vanilla</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Red Velvet" /><span class="choice-inner"><span class="ico">❤️</span>Red Velvet</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Strawberry" /><span class="choice-inner"><span class="ico">🍓</span>Strawberry</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Butterscotch" /><span class="choice-inner"><span class="ico">🍮</span>Butterscotch</span></label>
-            <label class="choice"><input type="radio" name="cake" value="__other" onchange="toggleOther(this)" /><span class="choice-inner"><span class="ico">✍️</span>Other</span></label>
-          </div>
-          <input type="text" id="cakeOther" class="txt hidden" placeholder="Tell us your dream flavour..." />
-        </div>
-
-        <!-- Q3: Gift bag type (with images) -->
-        <div class="card q">
-          <h2>👜 Birthday gift — which bag?</h2>
-          <div class="cards bags">
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Shoulder bag" required />
-              <span class="choice-inner">
-                <!-- Swap this src with a real photo later -->
-                <img src="https://placehold.co/300x220/ff9f1c/ffffff?text=Shoulder+Bag" alt="Shoulder bag" />
-                Shoulder bag
-              </span>
-            </label>
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Clutch" />
-              <span class="choice-inner">
-                <img src="https://placehold.co/300x220/9b5de5/ffffff?text=Clutch" alt="Clutch" />
-                Clutch
-              </span>
-            </label>
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Bigger bag / tote" />
-              <span class="choice-inner">
-                <img src="https://placehold.co/300x220/06d6a0/ffffff?text=Tote" alt="Bigger bag / tote" />
-                Bigger bag / tote
-              </span>
-            </label>
-          </div>
-          <label class="lbl" for="bagLinks">Paste links to bags you love 💖</label>
-          <textarea id="bagLinks" class="txt" rows="3" placeholder="Paste one or more links here..."></textarea>
-        </div>
-
-        <!-- Extras -->
-        <div class="card q">
-          <h2>✨ A few extra touches</h2>
-
-          <label class="lbl" for="dress">Dress code / theme colour 👗</label>
-          <input type="text" id="dress" class="txt" placeholder="e.g. pastel pink, all-black, glam..." />
-
-          <label class="lbl" for="playlist">Favourite music / playlist link 🎵</label>
-          <input type="text" id="playlist" class="txt" placeholder="Paste a Spotify / YouTube link..." />
-
-          <p class="lbl">Guest vibe 👯</p>
-          <div class="cards small">
-            <label class="choice"><input type="radio" name="guests" value="Just us" /><span class="choice-inner">Just us</span></label>
-            <label class="choice"><input type="radio" name="guests" value="Small group" /><span class="choice-inner">Small group</span></label>
-            <label class="choice"><input type="radio" name="guests" value="Big party" /><span class="choice-inner">Big party</span></label>
-          </div>
-
-          <p class="lbl">Surprise me? 🎁</p>
-          <div class="cards small">
-            <label class="choice"><input type="radio" name="surprise" value="Yes, surprise me!" /><span class="choice-inner">Yes, surprise me!</span></label>
-            <label class="choice"><input type="radio" name="surprise" value="No, I want the plan" /><span class="choice-inner">No, tell me the plan</span></label>
-          </div>
-
-          <label class="lbl" for="wishlist">Wishlist / anything else you want 📝</label>
-          <textarea id="wishlist" class="txt" rows="3" placeholder="Dream big! Anything at all..."></textarea>
-        </div>
-
-        <button type="submit" class="btn big wiggle">Finish the Adventure! 🎉</button>
-      </form>
-    </section>
-
-    <!-- ===== CELEBRATION SCREEN ===== -->
-    <section id="done" class="screen">
+    <!-- ===== 3. CELEBRATION ===== -->
+    <section id="done" class="screen" aria-label="Celebration">
       <div class="card done-card">
         <div class="backpack">🌟</div>
         <h1>¡Lo hicimos! We did it! 🎉</h1>
         <p class="sub">Here's the plan for the best birthday ever:</p>
         <pre id="summary" class="summary"></pre>
         <div class="btn-row">
-          <button class="btn" onclick="copyChoices()">📋 Copy my choices</button>
+          <button type="button" class="btn" onclick="copyChoices()">📋 Copy my choices</button>
           <a id="mailBtn" class="btn" href="#">✉️ Send to my friend</a>
         </div>
-        <button class="btn ghost" onclick="location.reload()">↺ Start over</button>
+        <button type="button" class="btn ghost" onclick="startOver()">↺ Start over</button>
       </div>
     </section>
   </main>
