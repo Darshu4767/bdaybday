@@ -145,23 +145,26 @@
 .lily.p2 { left: 52%; animation-delay: .8s; }
 .lily.p3 { left: 78%; animation-delay: 1.5s; }
 
-/* ===== Scene switching (body classes set by JS) ===== */
-/* Mountain scene: mountains visible, lake hidden, fewer trees */
-body.scene-mountain .lake { opacity: 0; }
-body.scene-mountain .mountains { opacity: 1; }
-body.scene-mountain .tree-row { opacity: .35; }
+/* ===== Scenery only shows DURING the adventure ===== */
+/* Hidden by default (intro + celebration pages) */
+.mountains, .lake { opacity: 0 !important; }
 
-/* Lake scene: lake visible, mountains dim */
-body.scene-lake .lake { opacity: 1; }
-body.scene-lake .mountains { opacity: .4; }
-body.scene-lake .tree-row { opacity: .3; }
-body.scene-lake .grass, body.scene-lake .ground { opacity: 0; }
+/* Mountain scene */
+body.in-adventure.scene-mountain .mountains { opacity: 1 !important; }
+body.in-adventure.scene-mountain .lake { opacity: 0 !important; }
+body.in-adventure.scene-mountain .tree-row { opacity: .35; }
 
-/* Forest scene: lush trees, no mountains/lake */
-body.scene-forest .lake { opacity: 0; }
-body.scene-forest .mountains { opacity: 0; }
-body.scene-forest .tree-row { opacity: 1; }
-body.scene-forest .firefly { opacity: 1; }
+/* Lake scene */
+body.in-adventure.scene-lake .lake { opacity: 1 !important; }
+body.in-adventure.scene-lake .mountains { opacity: .4 !important; }
+body.in-adventure.scene-lake .tree-row { opacity: .3; }
+body.in-adventure.scene-lake .grass, body.in-adventure.scene-lake .ground { opacity: 0; }
+
+/* Forest scene */
+body.in-adventure.scene-forest .lake { opacity: 0 !important; }
+body.in-adventure.scene-forest .mountains { opacity: 0 !important; }
+body.in-adventure.scene-forest .tree-row { opacity: 1; }
+body.in-adventure.scene-forest .firefly { opacity: 1; }
 
 /* ===== Boots & fox buddies — BIGGER ===== */
 .buddy {
