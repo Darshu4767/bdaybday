@@ -262,6 +262,8 @@
             </label>
           </div>
 
+          <p class="bag-note">📸 Bag photos are just for style ideas — the real gift may look a little different!</p>
+
           <div class="nav">
             <button type="button" class="btn ghost" onclick="prevStop(2)">← Lake</button>
             <button type="submit" class="btn big wiggle">Finish the Adventure! 🎉</button>
@@ -273,9 +275,26 @@
     <!-- ===== CELEBRATION SCREEN ===== -->
     <section id="done" class="screen">
       <div class="card done-card">
-        <div class="backpack">🌟</div>
-        <h1>¡Lo hicimos! We did it! 🎉</h1>
-        <p class="sub">We crossed the Mountain 🏔️, the Lake 🏞️ and the Forest 🌳 — here's the plan for the best birthday ever:</p>
+        <!-- Dora + Boots together, center stage, saying thank you -->
+        <div class="thankyou-crew" aria-hidden="true">
+          <div class="explorer" >
+            <div class="head">
+              <div class="hair"></div>
+              <div class="face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <div class="body">
+              <span class="pack">🎒</span>
+              <span class="arm wave">👋</span>
+            </div>
+          </div>
+          <div class="boots-buddy">🐵</div>
+        </div>
+        <h1 class="thankyou-title">¡Gracias! Thank you, <span id="thanksName">Kaviya</span>! 🎉</h1>
+        <p class="sub">We crossed the Mountain 🏔️, the Lake 🏞️ and the Forest 🌳 together — here's the plan for the best birthday ever:</p>
         <pre id="summary" class="summary"></pre>
         <p id="sendStatus" class="send-status"></p>
         <div class="btn-row">
