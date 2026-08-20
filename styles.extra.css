@@ -23,7 +23,6 @@
 .trail .dots { color: #fff; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,.4); }
 
 /* ===== Make stops open scenes, NOT form cards ===== */
-/* Remove the translucent panel look from stop panels + trail */
 .stop-panel.card, .trail.card {
   background: transparent !important;
   backdrop-filter: none !important;
@@ -41,10 +40,6 @@
   animation: doraHop 2.2s ease-in-out infinite;
 }
 @keyframes doraHop { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(2deg); } }
-.stop-dora .say {
-  display: block; font-size: .95rem; margin-top: 8px; color: #fff;
-  font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,.5);
-}
 
 /* Big floating choice icons */
 .stop-panel .cards {
@@ -90,7 +85,7 @@
   100% { transform: scale(1.15); }
 }
 
-/* Bag images (photos, not emoji) — keep a soft card just around the photo */
+/* Bag images (photos, not emoji) */
 .stop-panel .cards.bags .choice-inner { width: auto; text-shadow: none; color: var(--ink); }
 .stop-panel .cards.bags .choice.bag img {
   width: 150px; height: 110px; object-fit: cover;
@@ -104,7 +99,7 @@
   outline: 4px solid var(--yellow); color: var(--purple);
 }
 
-/* Labels + text inputs on open scenes: keep readable */
+/* Labels + text inputs on open scenes */
 .stop-panel .lbl { color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,.5); }
 
 /* Nav row inside stops */
@@ -121,14 +116,14 @@
   border-right: 150px solid transparent;
   border-bottom: 240px solid #7d8fb3;
 }
-.mountain::after { /* snow cap */
+.mountain::after {
   content: ""; position: absolute; top: 0; left: -46px;
   border-left: 46px solid transparent; border-right: 46px solid transparent;
   border-bottom: 70px solid #fff;
 }
 .mountain.m1 { left: 8%;  transform: scale(1.15); border-bottom-color: #6b7fa8; }
 .mountain.m2 { left: 34%; transform: scale(1.5);  border-bottom-color: #8697bd; z-index: -1; }
-.mountain.m3 { left: 62%; transform: scale(1.2);  border-bottom-color: #75existing; border-bottom-color: #6b7fa8; }
+.mountain.m3 { left: 62%; transform: scale(1.2);  border-bottom-color: #6b7fa8; }
 .mountain.m1::after { border-bottom-width: 60px; left: -40px; border-left-width: 40px; border-right-width: 40px; }
 .mountain.m2::after { border-bottom-width: 74px; }
 .mountain.m3::after { border-bottom-width: 58px; left: -40px; border-left-width: 40px; border-right-width: 40px; }
