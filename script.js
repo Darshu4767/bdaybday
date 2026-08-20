@@ -197,7 +197,7 @@ function finish(e) {
     .then((res) => {
       if (statusEl) {
         statusEl.textContent = res.ok
-          ? "✅ Sent to Darshana! Your choices are on their way 💌"
+          ? "✅ Sent! Your choices are on their way 💌"
           : "✅ Saved! (If email doesn't arrive, use Copy my choices.)";
       }
     })
