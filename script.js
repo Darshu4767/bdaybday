@@ -85,7 +85,16 @@ function goToStop(n) {
     s.classList.toggle("here", Number(s.dataset.stop) === n);
     s.classList.toggle("done", Number(s.dataset.stop) < n);
   });
+  // Switch the background scenery per stop (mountain / lake / forest)
+  setScene(n);
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Body gets a class so CSS can swap the background scene
+function setScene(n) {
+  const scenes = ["scene-mountain", "scene-lake", "scene-forest", "scene-forest"];
+  document.body.classList.remove("scene-mountain", "scene-lake", "scene-forest");
+  document.body.classList.add(scenes[n] || "scene-mountain");
 }
 
 function nextStop(current) {
