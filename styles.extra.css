@@ -97,9 +97,29 @@
 }
 .stop-panel .cards.bags .choice.bag .choice-inner {
   background: rgba(255,255,255,.9); border-radius: 16px; padding: 8px 10px;
+  display: flex; flex-direction: column; align-items: center; width: 170px;
+}
+.stop-panel .cards.bags .choice.bag .bag-name {
+  font-weight: 800; font-size: 1.05rem; margin-top: 6px; color: var(--ink);
+}
+.stop-panel .cards.bags .choice.bag .bag-desc {
+  font-weight: 500; font-size: .82rem; line-height: 1.25; margin-top: 3px;
+  color: #555; text-align: center;
 }
 .stop-panel .cards.bags .choice input:checked + .choice-inner {
   outline: 4px solid var(--yellow); color: var(--purple);
+}
+
+/* Little note that bag photos are illustrative only */
+.bag-note {
+  text-align: center; font-size: .9rem; font-style: italic; font-weight: 600;
+  color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,.5); margin: 14px auto 0; max-width: 480px;
+}
+
+/* Sent-status message on the celebration screen */
+.send-status {
+  text-align: center; font-weight: 700; font-size: 1.05rem;
+  margin: 10px 0 4px; color: var(--purple);
 }
 
 /* Nav row inside stops */
