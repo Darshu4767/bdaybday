@@ -1,0 +1,91 @@
+/* Append: BIG floating option icons for each adventure stop */
+
+/* Location header at each stop */
+.loc-head { text-align: center; margin-bottom: 6px; }
+.loc-emoji {
+  display: block; font-size: 4.5rem; line-height: 1;
+  animation: bob 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.2));
+}
+.loc-guide {
+  text-align: center; font-size: 1.05rem; margin: 4px 0 20px;
+  background: #fff6e0; border: 2px dashed var(--orange);
+  border-radius: 16px; padding: 12px 14px;
+}
+
+/* Trail map progress */
+.trail {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 1.6rem; padding: 14px; text-align: center;
+}
+.trail .stop { transition: transform .2s ease, filter .2s ease; filter: grayscale(.6) opacity(.5); }
+.trail .stop.here { transform: scale(1.5); filter: none; animation: bob 1.6s ease-in-out infinite; }
+.trail .stop.done { filter: none; }
+.trail .dots { color: var(--orange); font-weight: 700; }
+
+/* Big floating choice icons — override the small card look inside stops */
+.stop-panel .cards {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  justify-content: center; margin-top: 10px;
+}
+.stop-panel .cards .choice { cursor: pointer; }
+.stop-panel .cards .choice-inner {
+  border: none; background: transparent; box-shadow: none;
+  font-size: 1.05rem; font-weight: 700; gap: 10px; padding: 6px;
+  width: 130px;
+}
+.stop-panel .cards .choice .ico {
+  font-size: 4rem;
+  display: inline-block;
+  filter: drop-shadow(0 8px 8px rgba(0,0,0,.18));
+  animation: floaticon 3s ease-in-out infinite;
+}
+/* stagger each icon's float so they don't move in sync */
+.stop-panel .cards .choice:nth-child(1) .ico { animation-delay: 0s; }
+.stop-panel .cards .choice:nth-child(2) .ico { animation-delay: .4s; }
+.stop-panel .cards .choice:nth-child(3) .ico { animation-delay: .8s; }
+.stop-panel .cards .choice:nth-child(4) .ico { animation-delay: 1.2s; }
+.stop-panel .cards .choice:nth-child(5) .ico { animation-delay: 1.6s; }
+.stop-panel .cards .choice:nth-child(6) .ico { animation-delay: 2s; }
+
+@keyframes floaticon {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50%     { transform: translateY(-16px) rotate(3deg); }
+}
+
+.stop-panel .cards .choice:hover .ico { transform: scale(1.15); }
+
+/* Selected icon: glow ring + happy pop */
+.stop-panel .cards .choice input:checked + .choice-inner {
+  background: transparent; box-shadow: none; border: none;
+}
+.stop-panel .cards .choice input:checked + .choice-inner .ico {
+  animation: chosen .6s ease;
+  filter: drop-shadow(0 0 14px var(--yellow)) drop-shadow(0 0 6px var(--orange));
+}
+.stop-panel .cards .choice input:checked + .choice-inner {
+  color: var(--purple);
+}
+@keyframes chosen {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.4) rotate(8deg); }
+  100% { transform: scale(1.15); }
+}
+
+/* keep bag images (they aren't emoji icons) */
+.stop-panel .cards.bags .choice-inner { width: auto; }
+.stop-panel .cards.bags .choice.bag img { width: 160px; }
+
+/* Nav row inside stops */
+.nav { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+
+/* ===== Boots & fox buddies peeking from corners ===== */
+.buddy {
+  position: fixed; bottom: -8px; font-size: 3.4rem; z-index: 5;
+  pointer-events: none; user-select: none;
+}
+.buddy.boots { left: 10px; animation: peekL 4s ease-in-out infinite; }
+.buddy.fox   { right: 10px; animation: peekR 4.6s ease-in-out infinite; }
+@keyframes peekL { 0%,100% { transform: translateY(28px) rotate(-6deg); } 50% { transform: translateY(-4px) rotate(6deg); } }
+@keyframes peekR { 0%,100% { transform: translateY(30px) rotate(6deg); } 50% { transform: translateY(-2px) rotate(-8deg); } }
+@media (max-width: 560px) { .buddy { font-size: 2.6rem; } }
