@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles.extra.css" />
 </head>
-<body>
-  <!-- ===== ANIMATED FOREST BACKGROUND ===== -->
+<body class="scene-mountain">
+  <!-- ===== ANIMATED BACKGROUND ===== -->
   <div class="forest" aria-hidden="true">
     <div class="sun"></div>
     <div class="cloud c1">☁️</div>
@@ -36,6 +36,12 @@
     </div>
     <div class="ground"></div>
     <div class="grass"></div>
+    <!-- Lake (visible on lake stop) -->
+    <div class="lake">
+      <span class="lily p1">🪷</span>
+      <span class="lily p2">🪷</span>
+      <span class="lily p3">🦆</span>
+    </div>
     <span class="vine v1">🌿</span>
     <span class="vine v2">🍃</span>
     <span class="vine v3">🌿</span>
@@ -120,7 +126,20 @@
 
         <!-- ===== STOP 1: THE MOUNTAIN 🏔️ ===== -->
         <div class="stop-panel card" data-panel="0">
-          <span class="stop-dora">🧍‍♀️</span>
+          <div class="explorer side" aria-hidden="true">
+            <div class="head">
+              <div class="hair"></div>
+              <div class="face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <div class="body">
+              <span class="pack">🎒</span>
+              <span class="arm wave">👋</span>
+            </div>
+          </div>
           <div class="loc-head">
             <span class="loc-emoji">🏔️</span>
             <h2>Stop 1 — The Mountain</h2>
@@ -145,24 +164,33 @@
 
         <!-- ===== STOP 2: THE LAKE 🏞️ ===== -->
         <div class="stop-panel card" data-panel="1" hidden>
-          <span class="stop-dora">🧍‍♀️</span>
+          <div class="explorer side" aria-hidden="true">
+            <div class="head">
+              <div class="hair"></div>
+              <div class="face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <div class="body">
+              <span class="pack">🎒</span>
+              <span class="arm wave">👋</span>
+            </div>
+          </div>
           <div class="loc-head">
             <span class="loc-emoji">🏞️</span>
             <h2>Stop 2 — The Sparkly Lake</h2>
           </div>
           <p class="loc-guide">🦊 "Oh no, the sneaky fox! Quick — pick your <b>cake flavour</b> before he swipes it!"</p>
           <div class="cards small">
-            <label class="choice"><input type="radio" name="cake" value="Chocolate" required /><span class="choice-inner"><span class="ico">🍫</span>Chocolate</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Vanilla" /><span class="choice-inner"><span class="ico">🍰</span>Vanilla</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Red Velvet" /><span class="choice-inner"><span class="ico">❤️</span>Red Velvet</span></label>
-            <label class="choice"><input type="radio" name="cake" value="Strawberry" /><span class="choice-inner"><span class="ico">🍓</span>Strawberry</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Chocolate truffle" required /><span class="choice-inner"><span class="ico">🍫</span>Chocolate truffle</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Blueberry cheesecake" /><span class="choice-inner"><span class="ico">🫐</span>Blueberry cheesecake</span></label>
             <label class="choice"><input type="radio" name="cake" value="Butterscotch" /><span class="choice-inner"><span class="ico">🍮</span>Butterscotch</span></label>
+            <label class="choice"><input type="radio" name="cake" value="Rose" /><span class="choice-inner"><span class="ico">🌹</span>Rose</span></label>
             <label class="choice"><input type="radio" name="cake" value="__other" onchange="toggleOther(this)" /><span class="choice-inner"><span class="ico">✍️</span>Other</span></label>
           </div>
           <input type="text" id="cakeOther" class="txt hidden" placeholder="Tell us your dream flavour..." />
-
-          <label class="lbl">🎵 Toss a song into the lake (playlist link)</label>
-          <input type="text" id="playlist" class="txt" placeholder="Paste a Spotify / YouTube link..." />
 
           <div class="nav">
             <button type="button" class="btn ghost" onclick="prevStop(1)">← Mountain</button>
@@ -172,7 +200,20 @@
 
         <!-- ===== STOP 3: THE FOREST 🌳 ===== -->
         <div class="stop-panel card" data-panel="2" hidden>
-          <span class="stop-dora">🧍‍♀️</span>
+          <div class="explorer side" aria-hidden="true">
+            <div class="head">
+              <div class="hair"></div>
+              <div class="face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <div class="body">
+              <span class="pack">🎒</span>
+              <span class="arm wave">👋</span>
+            </div>
+          </div>
           <div class="loc-head">
             <span class="loc-emoji">🌳</span>
             <h2>Stop 3 — The Magic Forest</h2>
@@ -182,7 +223,7 @@
             <label class="choice bag">
               <input type="radio" name="bag" value="Shoulder bag" required />
               <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=300&h=220&fit=crop" alt="Shoulder bag" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=220&fit=crop" alt="Shoulder bag" loading="lazy" />
                 Shoulder bag
               </span>
             </label>
@@ -210,32 +251,11 @@
             <label class="choice bag">
               <input type="radio" name="bag" value="Handbag" />
               <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=220&fit=crop" alt="Handbag" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&h=220&fit=crop" alt="Handbag" loading="lazy" />
                 Handbag
               </span>
             </label>
           </div>
-          <label class="lbl" for="bagLinks">Paste links to bags you love 💖</label>
-          <textarea id="bagLinks" class="txt" rows="3" placeholder="Paste one or more links here..."></textarea>
-
-          <label class="lbl" for="dress">Dress code / theme colour 👗</label>
-          <input type="text" id="dress" class="txt" placeholder="e.g. pastel pink, all-black, glam..." />
-
-          <p class="lbl">Guest vibe 👯</p>
-          <div class="cards small">
-            <label class="choice"><input type="radio" name="guests" value="Just us" /><span class="choice-inner">Just us</span></label>
-            <label class="choice"><input type="radio" name="guests" value="Small group" /><span class="choice-inner">Small group</span></label>
-            <label class="choice"><input type="radio" name="guests" value="Big party" /><span class="choice-inner">Big party</span></label>
-          </div>
-
-          <p class="lbl">Surprise me? 🎁</p>
-          <div class="cards small">
-            <label class="choice"><input type="radio" name="surprise" value="Yes, surprise me!" /><span class="choice-inner">Yes, surprise me!</span></label>
-            <label class="choice"><input type="radio" name="surprise" value="No, I want the plan" /><span class="choice-inner">No, tell me the plan</span></label>
-          </div>
-
-          <label class="lbl" for="wishlist">Wishlist / anything else you want 📝</label>
-          <textarea id="wishlist" class="txt" rows="3" placeholder="Dream big! Anything at all..."></textarea>
 
           <div class="nav">
             <button type="button" class="btn ghost" onclick="prevStop(2)">← Lake</button>
