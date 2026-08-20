@@ -32,14 +32,17 @@
 }
 .stop-panel h2 { color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.55); }
 
-/* ===== Big Dora standing on each stop ===== */
-.stop-dora {
-  font-size: 5.5rem; text-align: center; line-height: 1;
-  margin: 4px auto 2px; display: block; width: fit-content;
-  filter: drop-shadow(0 10px 12px rgba(0,0,0,.3));
-  animation: doraHop 2.2s ease-in-out infinite;
+/* ===== Same drawn Dora on the SIDE of each stop ===== */
+.stop-panel { position: relative; }
+.stop-panel .explorer.side {
+  position: absolute; top: 0; left: 8px; width: 120px; transform: scale(.85);
+  z-index: 3;
 }
-@keyframes doraHop { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(2deg); } }
+@media (max-width: 720px) {
+  .stop-panel .explorer.side {
+    position: static; margin: 0 auto 4px; transform: scale(.9);
+  }
+}
 
 /* Big floating choice icons */
 .stop-panel .cards {
@@ -99,16 +102,13 @@
   outline: 4px solid var(--yellow); color: var(--purple);
 }
 
-/* Labels + text inputs on open scenes */
-.stop-panel .lbl { color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,.5); }
-
 /* Nav row inside stops */
 .nav { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
 
 /* ===== Painted MOUNTAINS in the background ===== */
 .mountains {
   position: fixed; bottom: 20%; left: -5%; right: -5%; height: 42%;
-  z-index: 0; pointer-events: none;
+  z-index: 0; pointer-events: none; transition: opacity .5s ease;
 }
 .mountain {
   position: absolute; bottom: 0; width: 0; height: 0;
@@ -127,6 +127,41 @@
 .mountain.m1::after { border-bottom-width: 60px; left: -40px; border-left-width: 40px; border-right-width: 40px; }
 .mountain.m2::after { border-bottom-width: 74px; }
 .mountain.m3::after { border-bottom-width: 58px; left: -40px; border-left-width: 40px; border-right-width: 40px; }
+
+/* ===== The LAKE (shows on lake stop) ===== */
+.lake {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 34%;
+  background: linear-gradient(#7ec8ff, #4aa3e8 60%, #2f7fc4);
+  z-index: 0; pointer-events: none; opacity: 0; transition: opacity .5s ease;
+}
+.lake::before { /* shimmer highlights */
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 8px, transparent 8px 40px);
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer { from { transform: translateX(0); } to { transform: translateX(40px); } }
+.lily { position: absolute; bottom: 24%; font-size: 2rem; animation: bob 3s ease-in-out infinite; }
+.lily.p1 { left: 18%; }
+.lily.p2 { left: 52%; animation-delay: .8s; }
+.lily.p3 { left: 78%; animation-delay: 1.5s; }
+
+/* ===== Scene switching (body classes set by JS) ===== */
+/* Mountain scene: mountains visible, lake hidden, fewer trees */
+body.scene-mountain .lake { opacity: 0; }
+body.scene-mountain .mountains { opacity: 1; }
+body.scene-mountain .tree-row { opacity: .35; }
+
+/* Lake scene: lake visible, mountains dim */
+body.scene-lake .lake { opacity: 1; }
+body.scene-lake .mountains { opacity: .4; }
+body.scene-lake .tree-row { opacity: .3; }
+body.scene-lake .grass, body.scene-lake .ground { opacity: 0; }
+
+/* Forest scene: lush trees, no mountains/lake */
+body.scene-forest .lake { opacity: 0; }
+body.scene-forest .mountains { opacity: 0; }
+body.scene-forest .tree-row { opacity: 1; }
+body.scene-forest .firefly { opacity: 1; }
 
 /* ===== Boots & fox buddies — BIGGER ===== */
 .buddy {
