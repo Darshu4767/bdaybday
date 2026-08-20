@@ -6,7 +6,6 @@ const FRIEND_SHORT = "Kaviya";               // used in the spoken poem
 const YOUR_EMAIL   = "darshana4767@gmail.com"; // where choices get emailed
 /* ============================================================ */
 
-// The little poem Dora "says" out loud + types in the bubble
 const POEM_LINES = [
   "¡Hola! My name is Dora, and guess what I can see —",
   `A super special explorer, and her name is ${FRIEND_SHORT}!`,
@@ -14,7 +13,6 @@ const POEM_LINES = [
   `It's ${FRIEND_SHORT}'s birthday — let's go and have some fun! 🎉`,
 ];
 
-// Show friend's name on the intro
 document.getElementById("friendName").textContent = FRIEND_NAME;
 
 // ---- Typing + speaking the poem ----
@@ -36,9 +34,8 @@ function speakPoem() {
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(fullPoem);
   u.rate = 0.95;
-  u.pitch = 1.35;      // higher pitch = more cartoony
+  u.pitch = 1.35;
   u.volume = 1;
-  // Prefer a female / English voice if available
   const voices = window.speechSynthesis.getVoices();
   const pick = voices.find(v => /female|zira|samantha|google us english/i.test(v.name))
             || voices.find(v => v.lang && v.lang.startsWith("en"));
@@ -51,10 +48,8 @@ function playPoem() {
   speakPoem();
 }
 
-// Auto-start on load (voice may need a tap on some phones — the 🔊 button covers that)
 window.addEventListener("load", () => {
   typePoem();
-  // Try to speak; if voices aren't ready yet, wait for them
   if (window.speechSynthesis && window.speechSynthesis.getVoices().length === 0) {
     window.speechSynthesis.onvoiceschanged = () => speakPoem();
   } else {
@@ -77,9 +72,36 @@ function goToIntro() {
 function startAdventure() {
   show("form");
   restore();
+  goToStop(0);
 }
 
-// Show/hide the "Other" cake flavour box
+// ---- Multi-stop adventure navigation ----
+function goToStop(n) {
+  document.querySelectorAll(".stop-panel").forEach((p) => {
+    p.hidden = Number(p.dataset.panel) !== n;
+  });
+  // Update the trail map highlight
+  document.querySelectorAll(".trail .stop").forEach((s) => {
+    s.classList.toggle("here", Number(s.dataset.stop) === n);
+    s.classList.toggle("done", Number(s.dataset.stop) < n);
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function nextStop(current) {
+  // Make sure the required choice on this stop is picked before moving on
+  const required = { 0: "day", 1: "cake", 2: "bag" }[current];
+  if (required && !document.querySelector(`input[name="${required}"]:checked`)) {
+    alert("Pick one of the floating icons first! ⭐");
+    return;
+  }
+  goToStop(current + 1);
+}
+
+function prevStop(current) {
+  goToStop(current - 1);
+}
+
 function toggleOther(radio) {
   document.getElementById("cakeOther").classList.toggle("hidden", !radio.checked);
 }
