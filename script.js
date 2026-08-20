@@ -4,6 +4,7 @@
 const FRIEND_NAME = "Kaviyatharshini";       // shown on intro + emails
 const FRIEND_SHORT = "Kaviya";               // used in the spoken poem
 const YOUR_EMAIL   = "darshana4767@gmail.com"; // where choices get emailed
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnpawjdn"; // choices sent here
 /* ============================================================ */
 
 const POEM_LINES = [
@@ -61,6 +62,8 @@ window.addEventListener("load", () => {
 function show(id) {
   document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
+  // Only show scenery backgrounds during the adventure stops
+  document.body.classList.toggle("in-adventure", id === "form");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -80,12 +83,10 @@ function goToStop(n) {
   document.querySelectorAll(".stop-panel").forEach((p) => {
     p.hidden = Number(p.dataset.panel) !== n;
   });
-  // Update the trail map highlight
   document.querySelectorAll(".trail .stop").forEach((s) => {
     s.classList.toggle("here", Number(s.dataset.stop) === n);
     s.classList.toggle("done", Number(s.dataset.stop) < n);
   });
-  // Switch the background scenery per stop (mountain / lake / forest)
   setScene(n);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -98,7 +99,6 @@ function setScene(n) {
 }
 
 function nextStop(current) {
-  // Make sure the required choice on this stop is picked before moving on
   const required = { 0: "day", 1: "cake", 2: "bag" }[current];
   if (required && !document.querySelector(`input[name="${required}"]:checked`)) {
     alert("Pick one of the floating icons first! ⭐");
@@ -115,7 +115,7 @@ function toggleOther(radio) {
   document.getElementById("cakeOther").classList.toggle("hidden", !radio.checked);
 }
 
-// ---- Save/restore progress ----
+// ---- Save/restore progress (3 questions only) ----
 const form = document.getElementById("planner");
 form.addEventListener("input", saveProgress);
 
@@ -129,8 +129,6 @@ function restore() {
   try {
     const d = JSON.parse(saved);
     setRadio("day", d.day);
-    setRadio("guests", d.guests);
-    setRadio("surprise", d.surprise);
     if (d.cakeIsOther) {
       setRadio("cake", "__other");
       document.getElementById("cakeOther").classList.remove("hidden");
@@ -139,10 +137,6 @@ function restore() {
       setRadio("cake", d.cake);
     }
     setRadio("bag", d.bag);
-    document.getElementById("bagLinks").value = d.bagLinks || "";
-    document.getElementById("dress").value = d.dress || "";
-    document.getElementById("playlist").value = d.playlist || "";
-    document.getElementById("wishlist").value = d.wishlist || "";
   } catch (e) { /* ignore */ }
 }
 
@@ -152,7 +146,7 @@ function setRadio(name, value) {
   if (el) el.checked = true;
 }
 
-// ---- Collect answers ----
+// ---- Collect answers (3 questions only) ----
 function collect() {
   const g = (name) => (document.querySelector(`input[name="${name}"]:checked`) || {}).value || "";
   const cakeChoice = g("cake");
@@ -162,12 +156,6 @@ function collect() {
     cake: cakeIsOther ? document.getElementById("cakeOther").value.trim() : cakeChoice,
     cakeIsOther,
     bag: g("bag"),
-    bagLinks: document.getElementById("bagLinks").value.trim(),
-    dress: document.getElementById("dress").value.trim(),
-    playlist: document.getElementById("playlist").value.trim(),
-    guests: g("guests"),
-    surprise: g("surprise"),
-    wishlist: document.getElementById("wishlist").value.trim(),
   };
 }
 
@@ -179,13 +167,7 @@ function buildSummary(d) {
     `----------------------------------\n` +
     line("🗓️ How to celebrate", d.day) +
     line("🎂 Cake flavour", d.cake) +
-    line("👜 Gift bag", d.bag) +
-    line("🔗 Bag links", d.bagLinks) +
-    line("👗 Dress code / colour", d.dress) +
-    line("🎵 Playlist", d.playlist) +
-    line("👯 Guest vibe", d.guests) +
-    line("🎁 Surprise", d.surprise) +
-    line("📝 Wishlist / notes", d.wishlist)
+    line("👜 Gift bag", d.bag)
   ).trim();
 }
 
@@ -197,9 +179,23 @@ function finish(e) {
   currentSummary = buildSummary(d);
   document.getElementById("summary").textContent = currentSummary;
 
+  // mailto backup button
   const subject = encodeURIComponent(`${FRIEND_NAME}'s Birthday Plan 🎉`);
   const body = encodeURIComponent(currentSummary);
   document.getElementById("mailBtn").href = `mailto:${YOUR_EMAIL}?subject=${subject}&body=${body}`;
+
+  // Send to Formspree (lands in your email automatically)
+  fetch(FORMSPREE_ENDPOINT, {
+    method: "POST",
+    headers: { "Accept": "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify({
+      friend: FRIEND_NAME,
+      day: d.day,
+      cake: d.cake,
+      bag: d.bag,
+      summary: currentSummary,
+    }),
+  }).catch(() => { /* ignore network errors; mailto is a backup */ });
 
   show("done");
   celebrate();
