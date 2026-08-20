@@ -17,6 +17,12 @@
     <div class="cloud c1">☁️</div>
     <div class="cloud c2">☁️</div>
     <div class="cloud c3">☁️</div>
+    <!-- Painted mountains -->
+    <div class="mountains">
+      <span class="mountain m1"></span>
+      <span class="mountain m2"></span>
+      <span class="mountain m3"></span>
+    </div>
     <div class="hills"></div>
     <div class="tree-row back">
       <span class="tree">🌲</span><span class="tree">🌳</span><span class="tree">🌲</span>
@@ -54,7 +60,7 @@
     <span class="star s4">✨</span>
   </div>
 
-  <!-- Boots the monkey peeks from bottom-left, sneaky fox from bottom-right -->
+  <!-- Boots the monkey (bottom-left), sneaky fox (bottom-right) -->
   <div class="buddy boots" title="Boots the monkey">🐵</div>
   <div class="buddy fox" title="A sneaky little fox!">🦊</div>
 
@@ -101,7 +107,7 @@
     <section id="form" class="screen">
       <form id="planner" onsubmit="return finish(event)">
 
-        <!-- Little trail map showing progress -->
+        <!-- Trail map progress -->
         <div class="trail card">
           <span class="stop" data-stop="0">🏔️</span>
           <span class="dots">· · ·</span>
@@ -114,11 +120,12 @@
 
         <!-- ===== STOP 1: THE MOUNTAIN 🏔️ ===== -->
         <div class="stop-panel card" data-panel="0">
+          <span class="stop-dora">🧍‍♀️</span>
           <div class="loc-head">
             <span class="loc-emoji">🏔️</span>
             <h2>Stop 1 — The Mountain</h2>
           </div>
-          <p class="loc-guide">🐵 Boots: "We climbed to the top! Up here, tell us <b>how you want to spend your big day!</b>"</p>
+          <p class="loc-guide">🐵 Boots: "We climbed to the top! Tell us <b>how you want to spend your big day!</b>"</p>
           <div class="cards">
             <label class="choice">
               <input type="radio" name="day" value="🎈 Club night" required />
@@ -138,6 +145,7 @@
 
         <!-- ===== STOP 2: THE LAKE 🏞️ ===== -->
         <div class="stop-panel card" data-panel="1" hidden>
+          <span class="stop-dora">🧍‍♀️</span>
           <div class="loc-head">
             <span class="loc-emoji">🏞️</span>
             <h2>Stop 2 — The Sparkly Lake</h2>
@@ -164,6 +172,7 @@
 
         <!-- ===== STOP 3: THE FOREST 🌳 ===== -->
         <div class="stop-panel card" data-panel="2" hidden>
+          <span class="stop-dora">🧍‍♀️</span>
           <div class="loc-head">
             <span class="loc-emoji">🌳</span>
             <h2>Stop 3 — The Magic Forest</h2>
@@ -173,22 +182,8 @@
             <label class="choice bag">
               <input type="radio" name="bag" value="Shoulder bag" required />
               <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=220&fit=crop" alt="Shoulder bag" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=300&h=220&fit=crop" alt="Shoulder bag" loading="lazy" />
                 Shoulder bag
-              </span>
-            </label>
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Clutch" />
-              <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=220&fit=crop" alt="Clutch" loading="lazy" />
-                Clutch
-              </span>
-            </label>
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Tote" />
-              <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=300&h=220&fit=crop" alt="Tote bag" loading="lazy" />
-                Tote
               </span>
             </label>
             <label class="choice bag">
@@ -199,38 +194,24 @@
               </span>
             </label>
             <label class="choice bag">
-              <input type="radio" name="bag" value="Crossbody" />
-              <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&h=220&fit=crop" alt="Crossbody bag" loading="lazy" />
-                Crossbody
-              </span>
-            </label>
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Bucket bag" />
-              <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1548863227-3af567fc3b27?w=300&h=220&fit=crop" alt="Bucket bag" loading="lazy" />
-                Bucket bag
-              </span>
-            </label>
-            <label class="choice bag">
-              <input type="radio" name="bag" value="Hobo bag" />
-              <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=300&h=220&fit=crop" alt="Hobo bag" loading="lazy" />
-                Hobo bag
-              </span>
-            </label>
-            <label class="choice bag">
               <input type="radio" name="bag" value="Satchel" />
               <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=300&h=220&fit=crop" alt="Satchel" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=220&fit=crop" alt="Satchel" loading="lazy" />
                 Satchel
               </span>
             </label>
             <label class="choice bag">
-              <input type="radio" name="bag" value="Sling / belt bag" />
+              <input type="radio" name="bag" value="Tote" />
               <span class="choice-inner">
-                <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=300&h=220&fit=crop" alt="Sling / belt bag" loading="lazy" />
-                Sling / belt bag
+                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=300&h=220&fit=crop" alt="Tote bag" loading="lazy" />
+                Tote
+              </span>
+            </label>
+            <label class="choice bag">
+              <input type="radio" name="bag" value="Handbag" />
+              <span class="choice-inner">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=220&fit=crop" alt="Handbag" loading="lazy" />
+                Handbag
               </span>
             </label>
           </div>
