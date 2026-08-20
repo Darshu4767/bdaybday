@@ -8,39 +8,61 @@
   filter: drop-shadow(0 8px 10px rgba(0,0,0,.2));
 }
 .loc-guide {
-  text-align: center; font-size: 1.05rem; margin: 4px 0 20px;
-  background: #fff6e0; border: 2px dashed var(--orange);
-  border-radius: 16px; padding: 12px 14px;
+  text-align: center; font-size: 1.15rem; margin: 4px 0 20px; font-weight: 600;
+  color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.5);
 }
 
 /* Trail map progress */
 .trail {
   display: flex; align-items: center; justify-content: center; gap: 6px;
-  font-size: 1.6rem; padding: 14px; text-align: center;
+  font-size: 1.8rem; padding: 10px; text-align: center;
 }
 .trail .stop { transition: transform .2s ease, filter .2s ease; filter: grayscale(.6) opacity(.5); }
 .trail .stop.here { transform: scale(1.5); filter: none; animation: bob 1.6s ease-in-out infinite; }
 .trail .stop.done { filter: none; }
-.trail .dots { color: var(--orange); font-weight: 700; }
+.trail .dots { color: #fff; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,.4); }
 
-/* Big floating choice icons — override the small card look inside stops */
+/* ===== Make stops open scenes, NOT form cards ===== */
+/* Remove the translucent panel look from stop panels + trail */
+.stop-panel.card, .trail.card {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px !important;
+}
+.stop-panel h2 { color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.55); }
+
+/* ===== Big Dora standing on each stop ===== */
+.stop-dora {
+  font-size: 5.5rem; text-align: center; line-height: 1;
+  margin: 4px auto 2px; display: block; width: fit-content;
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.3));
+  animation: doraHop 2.2s ease-in-out infinite;
+}
+@keyframes doraHop { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(2deg); } }
+.stop-dora .say {
+  display: block; font-size: .95rem; margin-top: 8px; color: #fff;
+  font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,.5);
+}
+
+/* Big floating choice icons */
 .stop-panel .cards {
-  display: flex; flex-wrap: wrap; gap: 18px;
-  justify-content: center; margin-top: 10px;
+  display: flex; flex-wrap: wrap; gap: 22px;
+  justify-content: center; margin-top: 14px;
 }
 .stop-panel .cards .choice { cursor: pointer; }
 .stop-panel .cards .choice-inner {
   border: none; background: transparent; box-shadow: none;
-  font-size: 1.05rem; font-weight: 700; gap: 10px; padding: 6px;
-  width: 130px;
+  font-size: 1.1rem; font-weight: 700; gap: 10px; padding: 6px;
+  width: 140px; color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,.5);
 }
 .stop-panel .cards .choice .ico {
-  font-size: 4rem;
+  font-size: 4.4rem;
   display: inline-block;
-  filter: drop-shadow(0 8px 8px rgba(0,0,0,.18));
+  filter: drop-shadow(0 8px 8px rgba(0,0,0,.25));
   animation: floaticon 3s ease-in-out infinite;
 }
-/* stagger each icon's float so they don't move in sync */
 .stop-panel .cards .choice:nth-child(1) .ico { animation-delay: 0s; }
 .stop-panel .cards .choice:nth-child(2) .ico { animation-delay: .4s; }
 .stop-panel .cards .choice:nth-child(3) .ico { animation-delay: .8s; }
@@ -55,16 +77,12 @@
 
 .stop-panel .cards .choice:hover .ico { transform: scale(1.15); }
 
-/* Selected icon: glow ring + happy pop */
 .stop-panel .cards .choice input:checked + .choice-inner {
-  background: transparent; box-shadow: none; border: none;
+  background: transparent; box-shadow: none; border: none; color: var(--yellow);
 }
 .stop-panel .cards .choice input:checked + .choice-inner .ico {
   animation: chosen .6s ease;
-  filter: drop-shadow(0 0 14px var(--yellow)) drop-shadow(0 0 6px var(--orange));
-}
-.stop-panel .cards .choice input:checked + .choice-inner {
-  color: var(--purple);
+  filter: drop-shadow(0 0 16px var(--yellow)) drop-shadow(0 0 8px var(--orange));
 }
 @keyframes chosen {
   0% { transform: scale(1); }
@@ -72,20 +90,56 @@
   100% { transform: scale(1.15); }
 }
 
-/* keep bag images (they aren't emoji icons) */
-.stop-panel .cards.bags .choice-inner { width: auto; }
-.stop-panel .cards.bags .choice.bag img { width: 160px; }
+/* Bag images (photos, not emoji) — keep a soft card just around the photo */
+.stop-panel .cards.bags .choice-inner { width: auto; text-shadow: none; color: var(--ink); }
+.stop-panel .cards.bags .choice.bag img {
+  width: 150px; height: 110px; object-fit: cover;
+  border-radius: 14px; border: 3px solid #fff;
+  box-shadow: 0 8px 16px rgba(0,0,0,.3);
+}
+.stop-panel .cards.bags .choice.bag .choice-inner {
+  background: rgba(255,255,255,.9); border-radius: 16px; padding: 8px 10px;
+}
+.stop-panel .cards.bags .choice input:checked + .choice-inner {
+  outline: 4px solid var(--yellow); color: var(--purple);
+}
+
+/* Labels + text inputs on open scenes: keep readable */
+.stop-panel .lbl { color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,.5); }
 
 /* Nav row inside stops */
 .nav { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
 
-/* ===== Boots & fox buddies peeking from corners ===== */
+/* ===== Painted MOUNTAINS in the background ===== */
+.mountains {
+  position: fixed; bottom: 20%; left: -5%; right: -5%; height: 42%;
+  z-index: 0; pointer-events: none;
+}
+.mountain {
+  position: absolute; bottom: 0; width: 0; height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-bottom: 240px solid #7d8fb3;
+}
+.mountain::after { /* snow cap */
+  content: ""; position: absolute; top: 0; left: -46px;
+  border-left: 46px solid transparent; border-right: 46px solid transparent;
+  border-bottom: 70px solid #fff;
+}
+.mountain.m1 { left: 8%;  transform: scale(1.15); border-bottom-color: #6b7fa8; }
+.mountain.m2 { left: 34%; transform: scale(1.5);  border-bottom-color: #8697bd; z-index: -1; }
+.mountain.m3 { left: 62%; transform: scale(1.2);  border-bottom-color: #75existing; border-bottom-color: #6b7fa8; }
+.mountain.m1::after { border-bottom-width: 60px; left: -40px; border-left-width: 40px; border-right-width: 40px; }
+.mountain.m2::after { border-bottom-width: 74px; }
+.mountain.m3::after { border-bottom-width: 58px; left: -40px; border-left-width: 40px; border-right-width: 40px; }
+
+/* ===== Boots & fox buddies — BIGGER ===== */
 .buddy {
-  position: fixed; bottom: -8px; font-size: 3.4rem; z-index: 5;
+  position: fixed; bottom: -6px; font-size: 5.5rem; z-index: 5;
   pointer-events: none; user-select: none;
 }
-.buddy.boots { left: 10px; animation: peekL 4s ease-in-out infinite; }
-.buddy.fox   { right: 10px; animation: peekR 4.6s ease-in-out infinite; }
-@keyframes peekL { 0%,100% { transform: translateY(28px) rotate(-6deg); } 50% { transform: translateY(-4px) rotate(6deg); } }
-@keyframes peekR { 0%,100% { transform: translateY(30px) rotate(6deg); } 50% { transform: translateY(-2px) rotate(-8deg); } }
-@media (max-width: 560px) { .buddy { font-size: 2.6rem; } }
+.buddy.boots { left: 12px; animation: peekL 4s ease-in-out infinite; }
+.buddy.fox   { right: 12px; animation: peekR 4.6s ease-in-out infinite; }
+@keyframes peekL { 0%,100% { transform: translateY(30px) rotate(-6deg); } 50% { transform: translateY(-6px) rotate(6deg); } }
+@keyframes peekR { 0%,100% { transform: translateY(32px) rotate(6deg); } 50% { transform: translateY(-4px) rotate(-8deg); } }
+@media (max-width: 560px) { .buddy { font-size: 3.8rem; } }
